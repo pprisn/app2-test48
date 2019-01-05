@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 	"time"
-
+	 "strconv"
 	"github.com/paked/messenger"
 )
 
@@ -22,15 +22,31 @@ type TranslateJoke struct {
 }
 
 // Keytg ключ бота Telegramm
-var Keytg string
+var Keyfb string
 
 // Keytg ключ сервиса на yandex
 var Keyyandex string
+var Port int
+var (
+	verifyToken = flag.String("verify-token", "pprisn_bot", "The token used to verify facebook (required)")
+	verify      = flag.Bool("should-verify", false, "Whether or not the app should verify itself")
+	pageToken   = flag.String("page-token", os.Getenv("ID"), "The token that is used to verify the page on facebook")
+	appSecret   = flag.String("app-secret", Keyfb, "The app secret from the facebook developer portal (required)")
+	host        = flag.String("host", WebhookURL, "The host used to serve the messenger bot")
+	port        = flag.Int("port", 8080, "The port used to serve the messenger bot")
+)
+
 
 //Проинициализируем ключи Keytg Keyyandex
 func init() {
-	Keytg = os.Getenv("KEYTG")
+        Port, err := strconv.Atoi(os.Getenv("PORT"))
+    	if err != nil {
+		log.Fatal(err)
+	}
+       	port        = flag.Int("port", Port, "The port used to serve the messenger bot")
+	Keyfb = os.Getenv("KEYFB")
 	Keyyandex = os.Getenv("KEYYANDEX")
+
 }
 
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
@@ -38,18 +54,6 @@ func init() {
 //  WebhookURL url сервера бота
 const WebhookURL = "https://app2-test48.herokuapp.com/"
 
-// WebTranslateURL url сервиса переводчика на русский с английского
-const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
-
-var (
-
-	verifyToken = flag.String("verify-token", "mad-skrilla", "The token used to verify facebook (required)")
-	verify      = flag.Bool("should-verify", false, "Whether or not the app should verify itself")
-	pageToken   = flag.String("page-token", "not skrilla", "The token that is used to verify the page on facebook")
-	appSecret   = flag.String("app-secret", "", "The app secret from the facebook developer portal (required)")
-	host        = flag.String("host", "localhost", "The host used to serve the messenger bot")
-	port        = flag.Int("port", 8080, "The port used to serve the messenger bot")
-)
 
 func main() {
 	flag.Parse()
