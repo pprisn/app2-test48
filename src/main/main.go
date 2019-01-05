@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 	"strconv"
-	"github.com/paked/messenger"
+	"https://github.com/paked/messenger"
 )
 
 // WebTranslateURL url сервиса переводчика на русский с английского
