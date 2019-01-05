@@ -1,0 +1,11 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/paked/messenger",
+			"repository": "https://github.com/paked/messenger",
+			"revision": "f36e956bd8e7bebdc8f2b2d1ca4d9b669e1eab6e",
+			"branch": "master"
+		}
+	]
+}
