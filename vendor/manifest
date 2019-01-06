@@ -2,9 +2,33 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/davecgh/go-spew",
+			"repository": "https://github.com/davecgh/go-spew",
+			"revision": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/paked/messenger",
 			"repository": "https://github.com/paked/messenger",
 			"revision": "f36e956bd8e7bebdc8f2b2d1ca4d9b669e1eab6e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pmezard/go-difflib",
+			"repository": "https://github.com/pmezard/go-difflib",
+			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stretchr/objx",
+			"repository": "https://github.com/stretchr/objx",
+			"revision": "ef50b0de28773081167c97fc27cf29a0bf8b8c71",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stretchr/testify",
+			"repository": "https://github.com/stretchr/testify",
+			"revision": "ffdc059bfe9ce6a4e144ba849dbedead332c6053",
 			"branch": "master"
 		}
 	]
