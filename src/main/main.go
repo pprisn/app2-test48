@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 	"strconv"
-	"github.com/paked/messenger"
+	mess "github.com/paked/messenger"
 )
 
 // WebTranslateURL url сервиса переводчика на русский с английского
@@ -67,7 +67,7 @@ func main() {
 	}
 
 	// Create a new messenger client
-	client := messenger.New(messenger.Options{
+	client := mess.New(mess.Options{
 		Verify:      *verify,
 		AppSecret:   *appSecret,
 		VerifyToken: *verifyToken,
@@ -75,7 +75,7 @@ func main() {
 	})
 
 	// Setup a handler to be triggered when a message is received
-	client.HandleMessage(func(m messenger.Message, r *messenger.Response) {
+	client.HandleMessage(func(m mess.Message, r *mess.Response) {
 		fmt.Printf("%v (Sent, %v)\n", m.Text, m.Time.Format(time.UnixDate))
 
 		p, err := client.ProfileByID(m.Sender.ID, []string{"name", "first_name", "last_name", "profile_pic"})
@@ -83,16 +83,16 @@ func main() {
 			fmt.Println("Something went wrong!", err)
 		}
 
-		r.Text(fmt.Sprintf("Hello, %v!", p.FirstName), messenger.ResponseType)
+		r.Text(fmt.Sprintf("Hello, %v!", p.FirstName), mess.ResponseType)
 	})
 
 	// Setup a handler to be triggered when a message is delivered
-	client.HandleDelivery(func(d messenger.Delivery, r *messenger.Response) {
+	client.HandleDelivery(func(d mess.Delivery, r *mess.Response) {
 		fmt.Println("Delivered at:", d.Watermark().Format(time.UnixDate))
 	})
 
 	// Setup a handler to be triggered when a message is read
-	client.HandleRead(func(m messenger.Read, r *messenger.Response) {
+	client.HandleRead(func(m mess.Read, r *mess.Response) {
 		fmt.Println("Read at:", m.Watermark().Format(time.UnixDate))
 	})
 
