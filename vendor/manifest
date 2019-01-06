@@ -14,6 +14,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/pkg/errors",
+			"repository": "https://github.com/pkg/errors",
+			"revision": "c38ea53d8c3f78ac85b9b0f1247abeb6d38f6988",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/pmezard/go-difflib",
 			"repository": "https://github.com/pmezard/go-difflib",
 			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
