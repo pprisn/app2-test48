@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"flag"
@@ -6,15 +6,15 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 	"strconv"
+	"time"
 
-        mess "github.com/paked/messenger"
-
+	mess "github.com/paked/messenger"
 )
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
+
 //Структура данных ответа от https://translate.yandex.net/api/v1.5/tr.json/translate
 // Пример на запрос Hellow Jack, ответ: {"code":200,"lang":"en-ru","text":["\"Хеллоу Джек\""]}
 type TranslateJoke struct {
@@ -38,14 +38,13 @@ var (
 	port        = flag.Int("port", 8080, "The port used to serve the messenger bot")
 )
 
-
 //Проинициализируем ключи Keytg Keyyandex
 func init() {
-        Port, err := strconv.Atoi(os.Getenv("PORT"))
-    	if err != nil {
+	Port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err != nil {
 		log.Fatal(err)
 	}
-       	port        = flag.Int("port", Port, "The port used to serve the messenger bot")
+	port = flag.Int("port", Port, "The port used to serve the messenger bot")
 	Keyfb = os.Getenv("KEYFB")
 	Keyyandex = os.Getenv("KEYYANDEX")
 
@@ -55,7 +54,6 @@ func init() {
 
 //  WebhookURL url сервера бота
 const WebhookURL = "https://app2-test48.herokuapp.com/"
-
 
 func main() {
 	flag.Parse()
