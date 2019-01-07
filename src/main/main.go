@@ -173,7 +173,9 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	messagingEvents := receivedMessage.Entry[0].Messaging
 	for _, event := range messagingEvents {
 		senderID := event.Sender.ID
+
 		log.Print("senderID: " + strconv.FormatInt(senderID, 10))
+		log.Print("%+v", event)
 		if &event.Message != nil && event.Message.Text != "" {
 			// TODO: Fix sendButtonMessage function
 			//if messageForButton(event.Message.Text) {
