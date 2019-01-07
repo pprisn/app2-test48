@@ -29,7 +29,8 @@ var AccessToken string
 var VerifyToken string
 var Port string
 
-const FacebookEndPoint = "https://fb.me/Pprisnbot"
+//const FacebookEndPoint = "https://fb.me/Pprisnbot"
+const FacebookEndPoint = "https://m.me/Pprisnbot"
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
@@ -215,6 +216,20 @@ func sendTextMessage(senderID int64, text string) {
 	if err != nil {
 		log.Print(err)
 	}
+
+	//	var dialTimeout = time.Duration(30 * time.Second)
+	//	httpClient := &http.Client{
+	//		Timeout: dialTimeout,
+	//		Transport: &http.Transport{
+	//			TLSClientConfig: &tls.Config{
+	//				InsecureSkipVerify: true,
+	//			},
+	//		},
+	//	}
+	//
+	//	//httpClient := new(http.Client)
+	//	resp, err := httpClient.Post(FacebookEndPoint, `application/soap+xml; charset=utf-8`, bytes.NewBuffer(send_message_body))
+
 	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
 	if err != nil {
 		log.Print(err)
@@ -231,6 +246,7 @@ func sendTextMessage(senderID int64, text string) {
 	if err != nil {
 		log.Print(err)
 	}
+
 	defer res.Body.Close()
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
