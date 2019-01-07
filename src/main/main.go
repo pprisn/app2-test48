@@ -171,6 +171,7 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	messagingEvents := receivedMessage.Entry[0].Messaging
 	for _, event := range messagingEvents {
 		senderID := event.Sender.ID
+		log.Print("senderID: " + senderID)
 		if &event.Message != nil && event.Message.Text != "" {
 			// TODO: Fix sendButtonMessage function
 			//if messageForButton(event.Message.Text) {
@@ -193,30 +194,12 @@ func getReplyMessage(receivedMessage string) string {
 	receivedMessage = strings.ToUpper(receivedMessage)
 	log.Print(" Received message: " + receivedMessage)
 
-	if strings.Contains(receivedMessage, "予約") {
-		message = "予約ありがとうございます。ご予約日を選んでください。"
-	} else if strings.Contains(receivedMessage, "場所") {
-		message = "BTSアソーク駅の近くです。"
-	} else if strings.Contains(receivedMessage, "電話") {
-		message = "02-123-4567"
-	} else if strings.Contains(receivedMessage, "RESERVATION") {
-		message = "Thank you for reservation! Choose the date."
-	} else if strings.Contains(receivedMessage, "RESERVE") {
-		message = "Thank you for reservation! Choose the date."
-	} else if strings.Contains(receivedMessage, "BOOKING") {
-		message = "Thank you for reservation! Choose the date."
-	} else if strings.Contains(receivedMessage, "LOCATION") {
-		message = "Near BTS Asok station."
-	} else if strings.Contains(receivedMessage, "WHERE") {
-		message = "Near BTS Asok station."
-	} else if strings.Contains(receivedMessage, "TEL") {
-		message = "02-123-4567"
-	} else if receivedMessage == "HI" {
-		message = "Hi! This is Golang Restaurant."
-	} else if receivedMessage == "こんにちは" {
-		message = "お問合せありがとうございます。Golangレストランです。"
+	if strings.Contains(receivedMessage, "test") {
+		message = "Вы запросили test"
+	} else if strings.Contains(receivedMessage, "ok") {
+		message = "Вы запросили ok"
 	} else {
-		message = "ちょっと意味が分かりません"
+		message = " Ваше сообщение принято"
 	}
 	return message
 }
