@@ -1,23 +1,34 @@
 ﻿package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+
 	"github.com/gorilla/mux"
 )
 
 // Keytg ключ бота Facebook
 var Keyfb string
+
 // Keytg ключ сервиса на yandex
 var Keyyandex string
-var Port string
+
 //  WebhookURL url сервера бота
-const WebhookURL = "https://app2-test48.herokuapp.com/"
+const WebhookURL = "https://app2-test48.herokuapp.com/webhook"
+
+var AccessToken string
+var VerifyToken string
+var Port string
+
+const FacebookEndPoint = "https://graph.facebook.com/v2.6/me/messages"
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
+
 //Структура данных ответа от https://translate.yandex.net/api/v1.5/tr.json/translate
 // Пример на запрос Hellow Jack, ответ: {"code":200,"lang":"en-ru","text":["\"Хеллоу Джек\""]}
 type TranslateJoke struct {
@@ -26,22 +37,157 @@ type TranslateJoke struct {
 	Text []string `json: "text"`
 }
 
+const FacebookEndPoint = "https://graph.facebook.com/v2.6/me/messages"
+
+//Формат события Webhook
+//{
+//	"object":"page",
+//	"entry":[
+//	  {
+//		"id":"<PAGE_ID>",
+//		"time":1458692752478,
+//		"messaging":[
+//		  {
+//			"sender":{
+//			  "id":"<PSID>"
+//			},
+//			"recipient":{
+//			  "id":"<PAGE_ID>"
+//			},
+//
+//			...
+//		  }
+//		]
+//	  }
+//	]
+// }
+type ReceivedMessage struct {
+	Object string  `json:"object"`
+	Entry  []Entry `json:"entry"`
+}
+
+type Entry struct {
+	ID        int64       `json:"id"`
+	Time      int64       `json:"time"`
+	Messaging []Messaging `json:"messaging"`
+}
+
+type Messaging struct {
+	Sender    Sender    `json:"sender"`
+	Recipient Recipient `json:"recipient"`
+	Timestamp int64     `json:"timestamp"`
+	Message   Message   `json:"message"`
+}
+
+type Sender struct {
+	ID int64 `json:"id"`
+}
+
+type Recipient struct {
+	ID int64 `json:"id"`
+}
+
+type Message struct {
+	MID  string `json:"mid"`
+	Seq  int64  `json:"seq"`
+	Text string `json:"text"`
+}
+
+type Payload struct {
+	TemplateType string  `json:"template_type"`
+	Text         string  `json:"text"`
+	Buttons      Buttons `json:"buttons"`
+}
+
+type Buttons struct {
+	Type  string `json:"type"`
+	Url   string `json:"url"`
+	Title string `json:"title"`
+}
+
+type Attachment struct {
+	Type    string  `json:"type"`
+	Payload Payload `json:"payload"`
+}
+
+type ButtonMessageBody struct {
+	Attachment Attachment `json:"attachment"`
+}
+
+type ButtonMessage struct {
+	Recipient         Recipient         `json:"recipient"`
+	ButtonMessageBody ButtonMessageBody `json:"message"`
+}
+
+type SendMessage struct {
+	Recipient Recipient `json:"recipient"`
+	Message   struct {
+		Text string `json:"text"`
+	} `json:"message"`
+}
+
 //Проинициализируем ключи Keyfb Keyyandex
 func init() {
 	Port = os.Getenv("PORT")
 	Keyfb = os.Getenv("KEYFB")
 	Keyyandex = os.Getenv("KEYYANDEX")
-
+	AccessToken = os.Getenv("ACCESS_TOKEN")
+	VerifyToken = os.Getenv("VERIFY_TOKEN")
 }
 
-func HomeEndpoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello :)")
+func webhookEndpoint(w http.ResponseWriter, r *http.Request) {
+	//	fmt.Fprintln(w, "Hello :)")
+	if r.Method == "GET" {
+		verifyTokenAction(w, r)
+	}
+	if r.Method == "POST" {
+		webhookPostAction(w, r)
+	}
 }
 
+//curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+func verifyTokenAction(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Query().Get("hub.verify_token") == VerifyToken {
+		log.Print("verify token success.")
+		fmt.Fprintf(w, r.URL.Query().Get("hub.challenge"))
+	} else {
+		log.Print("Error: verify token failed.")
+		fmt.Fprintf(w, "Error, wrong validation token")
+	}
+}
+
+//curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+func webhookPostAction(w http.ResponseWriter, r *http.Request) {
+	var receivedMessage ReceivedMessage
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Print(err)
+	}
+	if err = json.Unmarshal(body, &receivedMessage); err != nil {
+		log.Print(err)
+	}
+	messagingEvents := receivedMessage.Entry[0].Messaging
+	for _, event := range messagingEvents {
+		senderID := event.Sender.ID
+		if &event.Message != nil && event.Message.Text != "" {
+			// TODO: Fix sendButtonMessage function
+			//if messageForButton(event.Message.Text) {
+			//	message := getReplyMessage(event.Message.Text)
+			//	sendButtonMessage(senderID, message)
+			//} else {
+			//	message := getReplyMessage(event.Message.Text)
+			//	sendTextMessage(senderID, message)
+			//}
+			message := getReplyMessage(event.Message.Text)
+			sendTextMessage(senderID, message)
+		}
+	}
+	fmt.Fprintf(w, "Success")
+}
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", HomeEndpoint)
+	r.HandleFunc("/webhook", webhookEndpoint)
 	if err := http.ListenAndServe(":"+Port, r); err != nil {
 		log.Fatal(err)
 	}
