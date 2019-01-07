@@ -1,12 +1,16 @@
 ﻿package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -24,7 +28,7 @@ var AccessToken string
 var VerifyToken string
 var Port string
 
-const FacebookEndPoint = "https://graph.facebook.com/v2.6/me/messages"
+const FacebookEndPoint = "https://fb.me/Pprisnbot"
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
@@ -36,8 +40,6 @@ type TranslateJoke struct {
 	Lang string   `json: "lang"`
 	Text []string `json: "text"`
 }
-
-const FacebookEndPoint = "https://graph.facebook.com/v2.6/me/messages"
 
 //Формат события Webhook
 //{
@@ -183,6 +185,78 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	fmt.Fprintf(w, "Success")
+}
+
+// TODO: Reply message is just sample and made by easy logic, need to enhance the logic.
+func getReplyMessage(receivedMessage string) string {
+	var message string
+	receivedMessage = strings.ToUpper(receivedMessage)
+	log.Print(" Received message: " + receivedMessage)
+
+	if strings.Contains(receivedMessage, "予約") {
+		message = "予約ありがとうございます。ご予約日を選んでください。"
+	} else if strings.Contains(receivedMessage, "場所") {
+		message = "BTSアソーク駅の近くです。"
+	} else if strings.Contains(receivedMessage, "電話") {
+		message = "02-123-4567"
+	} else if strings.Contains(receivedMessage, "RESERVATION") {
+		message = "Thank you for reservation! Choose the date."
+	} else if strings.Contains(receivedMessage, "RESERVE") {
+		message = "Thank you for reservation! Choose the date."
+	} else if strings.Contains(receivedMessage, "BOOKING") {
+		message = "Thank you for reservation! Choose the date."
+	} else if strings.Contains(receivedMessage, "LOCATION") {
+		message = "Near BTS Asok station."
+	} else if strings.Contains(receivedMessage, "WHERE") {
+		message = "Near BTS Asok station."
+	} else if strings.Contains(receivedMessage, "TEL") {
+		message = "02-123-4567"
+	} else if receivedMessage == "HI" {
+		message = "Hi! This is Golang Restaurant."
+	} else if receivedMessage == "こんにちは" {
+		message = "お問合せありがとうございます。Golangレストランです。"
+	} else {
+		message = "ちょっと意味が分かりません"
+	}
+	return message
+}
+
+func sendTextMessage(senderID int64, text string) {
+	recipient := new(Recipient)
+	recipient.ID = senderID
+	send_message := new(SendMessage)
+	send_message.Recipient = *recipient
+	send_message.Message.Text = text
+	send_message_body, err := json.Marshal(send_message)
+	if err != nil {
+		log.Print(err)
+	}
+	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
+	if err != nil {
+		log.Print(err)
+	}
+	fmt.Println("%T", req)
+	fmt.Println("%T", err)
+
+	values := url.Values{}
+	values.Add("access_token", AccessToken)
+	req.URL.RawQuery = values.Encode()
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
+	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+	res, err := client.Do(req)
+	if err != nil {
+		log.Print(err)
+	}
+	defer res.Body.Close()
+	var result map[string]interface{}
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Print(err)
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		log.Print(err)
+	}
+	log.Print(result)
 }
 
 func main() {
