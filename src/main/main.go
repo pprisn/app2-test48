@@ -2,12 +2,12 @@
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -196,10 +196,10 @@ func getReplyMessage(receivedMessage string) string {
 	receivedMessage = strings.ToUpper(receivedMessage)
 	log.Print(" Received message: " + receivedMessage)
 
-	if strings.Contains(receivedMessage, "test") {
-		message = "Вы запросили test"
-	} else if strings.Contains(receivedMessage, "ok") {
-		message = "Вы запросили ok"
+	if strings.Contains(receivedMessage, "TEST") {
+		message = "Вы запросили TEST"
+	} else if strings.Contains(receivedMessage, "TEST1") {
+		message = "Вы запросили TEST1"
 	} else {
 		message = " Ваше сообщение принято"
 	}
@@ -230,35 +230,35 @@ func sendTextMessage(senderID int64, text string) {
 		log.Print(err)
 	}
 
-	var dialTimeout = time.Duration(30 * time.Second)
-	httpClient := &http.Client{
-		Timeout: dialTimeout,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		},
-	}
+	//var dialTimeout = time.Duration(30 * time.Second)
+	//httpClient := &http.Client{
+	//	Timeout: dialTimeout,
+	//	Transport: &http.Transport{
+	//		TLSClientConfig: &tls.Config{
+	//			InsecureSkipVerify: true,
+	//		},
+	//	},
+	//}
 
 	//	//httpClient := new(http.Client)
-	res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8;access_token=`+AccessToken, bytes.NewBuffer(send_message_body))
+	//res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8;access_token=`+AccessToken, bytes.NewBuffer(send_message_body))
 
-	//req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
-	//if err != nil {
-	//		log.Print(err)
-	//	}
-	//	fmt.Println("%T", req)
-	//	fmt.Println("%T", err)
+	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
+	if err != nil {
+		log.Print(err)
+	}
+	fmt.Println("%+v", req)
+	fmt.Println("%+v", err)
 
-	//	values := url.Values{}
-	//	values.Add("access_token", AccessToken)
-	//	req.URL.RawQuery = values.Encode()
-	//	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-	//	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
-	//	res, err := client.Do(req)
-	//	if err != nil {
-	//		log.Print(err)
-	//	}
+	values := url.Values{}
+	values.Add("access_token", AccessToken)
+	req.URL.RawQuery = values.Encode()
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
+	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+	res, err := client.Do(req)
+	if err != nil {
+		log.Print(err)
+	}
 
 	defer res.Body.Close()
 	var result map[string]interface{}
