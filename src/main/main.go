@@ -2,6 +2,7 @@
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -242,35 +243,35 @@ func sendTextMessage(senderID int64, text string) {
 	}
 	log.Println(message)
 
-	//var dialTimeout = time.Duration(30 * time.Second)
-	//httpClient := &http.Client{
-	//	Timeout: dialTimeout,
-	//	Transport: &http.Transport{
-	//		TLSClientConfig: &tls.Config{
-	//			InsecureSkipVerify: true,
-	//		},
-	//	},
-	//}
+	var dialTimeout = time.Duration(30 * time.Second)
+	httpClient := &http.Client{
+		Timeout: dialTimeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
 
 	//	//httpClient := new(http.Client)
-	//res, err := httpClient.Post(FacebookEndPoint, `application/x-www-form-urlencoded; charset=utf-8;access_token=`+AccessToken, bytes.NewBuffer(send_message_body))
+	res, err := httpClient.Post(FacebookEndPoint, `application/x-www-form-urlencoded; charset=utf-8;access_token=`+AccessToken, bytes.NewBuffer(send_message_body))
 
-	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
-	if err != nil {
-		log.Print(err)
-	}
+	//	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
+	//	if err != nil {
+	//		log.Print(err)
+	//	}
 	//	fmt.Println("%+v", req)
 	//	fmt.Println("%+v", err)
 	//	values := url.Values{}
 	//	values.Add("access_token", AccessToken)
 	//	req.URL.RawQuery = values.Encode()
 
-	req.Header.Add("Content-Type", "application/json; charset=UTF-8;")
-	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
-	res, err := client.Do(req)
-	if err != nil {
-		log.Print(err)
-	}
+	//	req.Header.Add("Content-Type", "application/json; charset=UTF-8;")
+	//	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+	//	res, err := client.Do(req)
+	//	if err != nil {
+	//		log.Print(err)
+	//	}
 
 	defer res.Body.Close()
 	var result map[string]interface{}
