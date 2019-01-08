@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
 	"time"
-	"regexp"
 
 	"github.com/gorilla/mux"
 )
@@ -35,6 +35,20 @@ const FacebookEndPoint = "https://m.me/Pprisnbot"
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
+
+//структура данных ответа от api.icndb.com
+// { "type": "success", "value": { "id": 563, "joke": "Chuck Norris causes the Windows Blue Screen of Death.", "categories": ["nerdy"] } }
+// Описание вложенной структуры ответа ..{ "id": 563, "joke": "Chuck
+type Joke struct {
+	ID   uint32 `json: "id"`
+	Joke string `json: "joke"`
+}
+
+// Описание начала структуры ответа  { "type": "success", "value": {..
+type JokeResponse struct {
+	Type  string `json:"type"`
+	Value Joke   `json:"value"`
+}
 
 //Структура данных ответа от https://translate.yandex.net/api/v1.5/tr.json/translate
 // Пример на запрос Hellow Jack, ответ: {"code":200,"lang":"en-ru","text":["\"Хеллоу Джек\""]}
@@ -133,6 +147,11 @@ type SendMessage struct {
 	} `json:"message"`
 }
 
+//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
+var ValidRKLIP = regexp.MustCompile(`(?m)^(([0-9]{15})|([0-9]{17}))$`)
+var ValidTranslate = regexp.MustCompile(`(?m)(^[a-z-A-Z].*$)`)
+var ValidRUSSIANPOST = regexp.MustCompile(`(?m)^(([0-9]{14})|([0-9A-Z]{13}))$`)
+
 //Проинициализируем ключи Keyfb Keyyandex
 func init() {
 	Port = os.Getenv("PORT")
@@ -140,10 +159,6 @@ func init() {
 	Keyyandex = os.Getenv("KEYYANDEX")
 	AccessToken = os.Getenv("ACCESS_TOKEN")
 	VerifyToken = os.Getenv("VERIFY_TOKEN")
-	//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
-	var ValidRKLIP = regexp.MustCompile(`(?m)^(([0-9]{15})|([0-9]{17}))$`)
-	var ValidTranslate = regexp.MustCompile(`(?m)(^[a-z-A-Z].*$)`)
-	var ValidRUSSIANPOST = regexp.MustCompile(`(?m)^(([0-9]{14})|([0-9A-Z]{13}))$`)
 }
 
 func webhookEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -214,13 +229,13 @@ func getReplyMessage(receivedMessage string) string {
 	} else {
 		message = `Уточните Штриховой Почтовый Идентификатор, пожалуйста. И повторите запрос.`
 	}
-//	if strings.Contains(receivedMessage, "TEST") {
-//		message = "Вы запросили TEST"
-//	} else if strings.Contains(receivedMessage, "TEST1") {
-//		message = "Вы запросили TEST1"
-//	} else {
-//		message = " Ваше сообщение принято"
-//	}
+	//	if strings.Contains(receivedMessage, "TEST") {
+	//		message = "Вы запросили TEST"
+	//	} else if strings.Contains(receivedMessage, "TEST1") {
+	//		message = "Вы запросили TEST1"
+	//	} else {
+	//		message = " Ваше сообщение принято"
+	//	}
 	return message
 }
 
@@ -335,7 +350,7 @@ func sendTextMessage(senderID string, text string) {
 
 	//	//httpClient := new(http.Client)
 	res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8`, bytes.NewBuffer(send_message_body))
-	
+
 	defer res.Body.Close()
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
@@ -349,6 +364,54 @@ func sendTextMessage(senderID string, text string) {
 		log.Print(err)
 	}
 	log.Print(result)
+}
+
+// Функция getJoke() string , возвращает строку с шуткой, полученной от сервиса  http://api.icndb.com/jokes/random?limitTo=[nerdy]
+func getJoke() string {
+	c := http.Client{}
+	resp, err := c.Get("http://api.icndb.com/jokes/random?limitTo=[nerdy]")
+	if err != nil {
+		return "jokes API not responding"
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	joke := JokeResponse{}
+	err = json.Unmarshal(body, &joke)
+	if err != nil {
+		return "Joke error"
+	}
+	return joke.Value.Joke
+}
+
+// Функция getTranslate(mytext string) string, переводит полученный английский текст на русский или если
+// текст отсутствует, получает очередную шутку и возвращает ее перевод на русском
+func getTranslate(mytext string) string {
+	var sjoke string
+	if mytext == "" {
+		//Получим очередную шутку на английском
+		sjoke = getJoke()
+	} else {
+		// если поступил англ. текст, принимаем его для перевода
+		sjoke = mytext
+	}
+	c := http.Client{}
+	lang := "en-ru"
+	// подготовим параметры для POST запроса
+	builtParams := url.Values{"key": {Keyyandex}, "lang": {lang}, "text": {sjoke}, "options": {"1"}}
+	resp, err := c.PostForm(WebTranslateURL, builtParams)
+	if err != nil {
+		return "Переводчик yandex API not responding..."
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	tjoke := TranslateJoke{}
+	err = json.Unmarshal(body, &tjoke)
+	if err != nil {
+		serr := fmt.Sprintf("%v", err)
+		return "Unmarshal error " + serr
+	}
+	return strings.Join(tjoke.Text[:], ",")
+
 }
 
 func main() {
