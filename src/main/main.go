@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -71,7 +71,7 @@ type ReceivedMessage struct {
 }
 
 type Entry struct {
-	ID        int64       `json:"id"`
+	ID        string      `json:"id"`
 	Time      int64       `json:"time"`
 	Messaging []Messaging `json:"messaging"`
 }
@@ -84,17 +84,18 @@ type Messaging struct {
 }
 
 type Sender struct {
-	ID int64 `json:"id"`
+	ID string `json:"id"`
 }
 
 type Recipient struct {
-	ID int64 `json:"id"`
+	ID string `json:"id"`
 }
 
 type Message struct {
-	MID  string `json:"mid"`
-	Seq  int64  `json:"seq"`
-	Text string `json:"text"`
+	MID    string `json:"mid"`
+	Seq    int64  `json:"seq"`
+	Text   string `json:"text"`
+	IsEcho bool   `json:"is_echo"`
 }
 
 type Payload struct {
@@ -174,7 +175,7 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	for _, event := range messagingEvents {
 		senderID := event.Sender.ID
 
-		log.Println("senderID: " + strconv.FormatInt(senderID, 10))
+		log.Println("senderID: " + senderID)
 		log.Print("%+v\n", event)
 		if &event.Message != nil && event.Message.Text != "" {
 			// TODO: Fix sendButtonMessage function
@@ -186,7 +187,8 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 			//	sendTextMessage(senderID, message)
 			//}
 			message := getReplyMessage(event.Message.Text)
-			sendTextMessage(senderID, message)
+			//sendTextMessage(senderID, message)
+			SendMessageToBot(senderID, message)
 		}
 	}
 	fmt.Fprintf(w, "Success")
@@ -208,7 +210,49 @@ func getReplyMessage(receivedMessage string) string {
 	return message
 }
 
-func sendTextMessage(senderID int64, text string) {
+// SendMessageToBot sends a message to the Facebook bot
+func SendMessageToBot(botID string, rtext string) {
+
+	recipient := new(Recipient)
+	recipient.ID = botID
+	sendMessage := new(SendMessage)
+	sendMessage.Recipient = *recipient
+	//sendMessage.Message.Text = response.Result.Fulfillment.Speech
+	sendMessage.Message.Text = rtext
+	sendMessageBody, err := json.Marshal(sendMessage)
+	if err != nil {
+		log.Print(err)
+	}
+
+	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
+	if err != nil {
+		log.Print(err)
+	}
+
+	values := url.Values{}
+	values.Add("access_token", AccessToken)
+	req.URL.RawQuery = values.Encode()
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
+
+	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+	res, err := client.Do(req)
+	if err != nil {
+		log.Print(err)
+	}
+
+	defer res.Body.Close()
+	var result map[string]interface{}
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Print(err)
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		log.Print(err)
+	}
+	log.Print(result)
+}
+
+func sendTextMessage(senderID string, text string) {
 	//	let request_body = {
 	//		"recipient": {
 	//		  "id": sender_psid
@@ -230,7 +274,7 @@ func sendTextMessage(senderID int64, text string) {
 	send_message.Recipient = *recipient
 	send_message.Message.Text = text
 
-	log.Print("send_message: %s\n", send_message)
+	log.Print("send_message: %v\n", send_message)
 
 	message := map[string]interface{}{
 		"access_token":   AccessToken,
@@ -278,8 +322,11 @@ func sendTextMessage(senderID int64, text string) {
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
+		log.Print("err ReadAll(res) %v\n", body)
 		log.Print(err)
 	}
+
+	log.Print("ReadAll(res) %+v \n", body)
 	if err := json.Unmarshal(body, &result); err != nil {
 		log.Print(err)
 	}
