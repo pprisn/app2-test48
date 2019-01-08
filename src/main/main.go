@@ -226,7 +226,7 @@ func getReplyMessage(receivedMessage string) string {
 func SendMessageToBot(botID string, rtext string) {
 
 	recipient := new(Recipient)
-	log.Print("botID=%+v\n", botID)
+	log.Printf("botID=%+v\n", botID)
 	recipient.ID = botID
 	sendMessage := new(SendMessage)
 	sendMessage.Messaging_type = "RESPONSE"
@@ -251,7 +251,7 @@ func SendMessageToBot(botID string, rtext string) {
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
-		log.Print("Ошибка client.Do(req) req=%v \n ", req)
+		log.Printf("Ошибка client.Do(req) req=%v \n ", req)
 		log.Print(err)
 	}
 
@@ -259,6 +259,7 @@ func SendMessageToBot(botID string, rtext string) {
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
+		log.Printf("Ошибка ioutil.ReadAll(res.Body) res.Body= %+v \n ", res.Body)
 		log.Print(err)
 	}
 	if err := json.Unmarshal(body, &result); err != nil {
