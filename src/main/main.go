@@ -139,6 +139,10 @@ func init() {
 	Keyyandex = os.Getenv("KEYYANDEX")
 	AccessToken = os.Getenv("ACCESS_TOKEN")
 	VerifyToken = os.Getenv("VERIFY_TOKEN")
+	//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
+	var ValidRKLIP = regexp.MustCompile(`(?m)^(([0-9]{15})|([0-9]{17}))$`)
+	var ValidTranslate = regexp.MustCompile(`(?m)(^[a-z-A-Z].*$)`)
+	var ValidRUSSIANPOST = regexp.MustCompile(`(?m)^(([0-9]{14})|([0-9A-Z]{13}))$`)
 }
 
 func webhookEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -174,7 +178,6 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	messagingEvents := receivedMessage.Entry[0].Messaging
 	for _, event := range messagingEvents {
 		senderID := event.Sender.ID
-
 		log.Println("senderID: %+v \n" + senderID)
 		log.Print("%+v\n", event)
 		if &event.Message != nil && event.Message.Text != "" {
@@ -187,7 +190,6 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 			//	sendTextMessage(senderID, message)
 			//}
 			message := getReplyMessage(event.Message.Text)
-			//sendTextMessage(senderID, message)
 			SendMessageToBot(senderID, message)
 		}
 	}
@@ -199,14 +201,25 @@ func getReplyMessage(receivedMessage string) string {
 	var message string
 	receivedMessage = strings.ToUpper(receivedMessage)
 	log.Print(" Received message: " + receivedMessage)
-
-	if strings.Contains(receivedMessage, "TEST") {
-		message = "Вы запросили TEST"
-	} else if strings.Contains(receivedMessage, "TEST1") {
-		message = "Вы запросили TEST1"
+	if ValidRKLIP.MatchString(receivedMessage) == true {
+		// Поступил запрос трэк номера РегионКурьер Липецк
+		message = req2rkLip(string(receivedMessage))
+	} else if ValidRUSSIANPOST.MatchString(receivedMessage) == true {
+		// Поступил запрос трэк номера RUSSIANPOST
+		message = req2russianpost(string(receivedMessage))
+	} else if ValidTranslate.MatchString(receivedMessage) == true {
+		// Поступил запрос текста на английском - переведем его.
+		message = getTranslate(receivedMessage)
 	} else {
-		message = " Ваше сообщение принято"
+		message = `Уточните Штриховой Почтовый Идентификатор, пожалуйста. И повторите запрос.`
 	}
+//	if strings.Contains(receivedMessage, "TEST") {
+//		message = "Вы запросили TEST"
+//	} else if strings.Contains(receivedMessage, "TEST1") {
+//		message = "Вы запросили TEST1"
+//	} else {
+//		message = " Ваше сообщение принято"
+//	}
 	return message
 }
 
@@ -321,24 +334,7 @@ func sendTextMessage(senderID string, text string) {
 
 	//	//httpClient := new(http.Client)
 	res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8`, bytes.NewBuffer(send_message_body))
-
-	//	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
-	//	if err != nil {
-	//		log.Print(err)
-	//	}
-	//	fmt.Println("%+v", req)
-	//	fmt.Println("%+v", err)
-	//	values := url.Values{}
-	//	values.Add("access_token", AccessToken)
-	//	req.URL.RawQuery = values.Encode()
-
-	//	req.Header.Add("Content-Type", "application/json; charset=UTF-8;")
-	//	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
-	//	res, err := client.Do(req)
-	//	if err != nil {
-	//		log.Print(err)
-	//	}
-
+	
 	defer res.Body.Close()
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
