@@ -265,7 +265,7 @@ func sendTextMessage(senderID int64, text string) {
 	//	values.Add("access_token", AccessToken)
 	//	req.URL.RawQuery = values.Encode()
 
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+	req.Header.Add("Content-Type", "application/json; charset=UTF-8;")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
