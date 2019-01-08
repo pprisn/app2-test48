@@ -251,9 +251,12 @@ func SendMessageToBot(botID string, rtext string) {
 	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+
+	log.Printf("req=%+v\n", req)
+
 	res, err := client.Do(req)
 	if err != nil {
-		log.Printf("Ошибка client.Do(req) req=%v \n ", req)
+		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
 	}
 
