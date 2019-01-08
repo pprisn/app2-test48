@@ -254,7 +254,7 @@ func sendTextMessage(senderID int64, text string) {
 	}
 
 	//	//httpClient := new(http.Client)
-	res, err := httpClient.Post(FacebookEndPoint, `application/x-www-form-urlencoded; charset=utf-8;access_token=`+AccessToken, bytes.NewBuffer(send_message_body))
+	res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8`, bytes.NewBuffer(send_message_body))
 
 	//	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(send_message_body))
 	//	if err != nil {
