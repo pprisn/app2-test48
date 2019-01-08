@@ -233,8 +233,9 @@ func sendTextMessage(senderID int64, text string) {
 	log.Print("send_message: %s\n", send_message)
 
 	message := map[string]interface{}{
-		"access_token": AccessToken,
-		"json":         send_message,
+		"access_token":   AccessToken,
+		"messaging_type": "RESPONSE",
+		"json":           send_message,
 	}
 
 	send_message_body, err := json.Marshal(message)
