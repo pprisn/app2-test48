@@ -191,7 +191,7 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 			SendMessageToBot(senderID, message)
 		}
 	}
-	fmt.Fprintf(w, "Success")
+	//fmt.Fprintf(w, "Success")
 }
 
 // TODO: Reply message is just sample and made by easy logic, need to enhance the logic.
@@ -230,6 +230,7 @@ func SendMessageToBot(botID string, rtext string) {
 	}
 
 	values := url.Values{}
+	values.Add("messaging_type", "RESPONSE")
 	values.Add("access_token", AccessToken)
 	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
