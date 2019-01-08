@@ -231,15 +231,17 @@ func SendMessageToBot(botID string, rtext string) {
 	sendMessage := new(SendMessage)
 	sendMessage.Messaging_type = "RESPONSE"
 	sendMessage.Recipient = *recipient
-	//sendMessage.Message.Text = response.Result.Fulfillment.Speech
 	sendMessage.Message.Text = rtext
+	log.Printf("sendMessage: %+v \n", sendMessage)
 	sendMessageBody, err := json.Marshal(sendMessage)
 	if err != nil {
+		log.Println("err json.Marshal(sendMessage)")
 		log.Print(err)
 	}
 
 	req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
 	if err != nil {
+		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
 		log.Print(err)
 	}
 
@@ -247,7 +249,6 @@ func SendMessageToBot(botID string, rtext string) {
 	values.Add("access_token", AccessToken)
 	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
-
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
@@ -290,7 +291,7 @@ func sendTextMessage(senderID string, text string) {
 	send_message.Recipient = *recipient
 	send_message.Message.Text = text
 
-	log.Print("send_message: %v\n", send_message)
+	log.Printf("send_message: %v\n", send_message)
 
 	message := map[string]interface{}{
 		"access_token":   AccessToken,
