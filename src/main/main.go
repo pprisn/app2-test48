@@ -247,7 +247,7 @@ func SendMessageToBot(botID string, rtext string) {
 	}
 
 	values := url.Values{}
-	values.Add("access_token", AccessToken)
+	values.Add("access_token", VerifyToken)
 	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
