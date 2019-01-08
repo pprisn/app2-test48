@@ -234,6 +234,7 @@ func SendMessageToBot(botID string, rtext string) {
 	sendMessage.Message.Text = rtext
 	log.Printf("sendMessage: %+v \n", sendMessage)
 	sendMessageBody, err := json.Marshal(sendMessage)
+	log.Printf("Marshal %+v\n", string(sendMessageBody))
 	if err != nil {
 		log.Println("err json.Marshal(sendMessage)")
 		log.Print(err)
