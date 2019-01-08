@@ -125,8 +125,9 @@ type ButtonMessage struct {
 }
 
 type SendMessage struct {
-	Recipient Recipient `json:"recipient"`
-	Message   struct {
+	Messaging_type string    `json:"messaging_type"`
+	Recipient      Recipient `json:"recipient"`
+	Message        struct {
 		Text string `json:"text"`
 	} `json:"message"`
 }
@@ -161,7 +162,6 @@ func verifyTokenAction(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	var receivedMessage ReceivedMessage
 	body, err := ioutil.ReadAll(r.Body)
@@ -175,7 +175,7 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	for _, event := range messagingEvents {
 		senderID := event.Sender.ID
 
-		log.Println("senderID: " + senderID)
+		log.Println("senderID: %+v \n" + senderID)
 		log.Print("%+v\n", event)
 		if &event.Message != nil && event.Message.Text != "" {
 			// TODO: Fix sendButtonMessage function
@@ -210,12 +210,26 @@ func getReplyMessage(receivedMessage string) string {
 	return message
 }
 
+//curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+
 // SendMessageToBot sends a message to the Facebook bot
+//curl -X POST -H "Content-Type: application/json" -d '{
+//"messaging_type": "<MESSAGING_TYPE>",
+//	"recipient":{
+//	  "id":"<PSID>"
+//	},
+//	"message":{
+//	  "text":"hello, world!"
+//	}
+//}' "https://graph.facebook.com/v2.6/me/messages?access_token=<PAGE_ACCESS_TOKEN>"
+
 func SendMessageToBot(botID string, rtext string) {
 
 	recipient := new(Recipient)
+	log.Print("botID=%+v\n", botID)
 	recipient.ID = botID
 	sendMessage := new(SendMessage)
+	sendMessage.Messaging_type = "RESPONSE"
 	sendMessage.Recipient = *recipient
 	//sendMessage.Message.Text = response.Result.Fulfillment.Speech
 	sendMessage.Message.Text = rtext
@@ -230,7 +244,6 @@ func SendMessageToBot(botID string, rtext string) {
 	}
 
 	values := url.Values{}
-	values.Add("messaging_type", "RESPONSE")
 	values.Add("access_token", AccessToken)
 	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/json; charset=UTF-8")
@@ -238,6 +251,7 @@ func SendMessageToBot(botID string, rtext string) {
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
+		log.Print("Ошибка client.Do(req) req=%v \n ", req)
 		log.Print(err)
 	}
 
