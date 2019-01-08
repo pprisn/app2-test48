@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -230,12 +229,18 @@ func sendTextMessage(senderID int64, text string) {
 	send_message.Recipient = *recipient
 	send_message.Message.Text = text
 
-	log.Print("%v\n", send_message)
-	send_message_body, err := json.Marshal(send_message)
+	log.Print("send_message: %s\n", send_message)
+
+	message := map[string]interface{}{
+		"access_token": AccessToken,
+		"json":         send_message,
+	}
+
+	send_message_body, err := json.Marshal(message)
 	if err != nil {
 		log.Println("Marshal(send_message)", err)
 	}
-	log.Println(send_message_body)
+	log.Println(message)
 
 	//var dialTimeout = time.Duration(30 * time.Second)
 	//httpClient := &http.Client{
@@ -254,12 +259,12 @@ func sendTextMessage(senderID int64, text string) {
 	if err != nil {
 		log.Print(err)
 	}
-	fmt.Println("%+v", req)
-	fmt.Println("%+v", err)
+	//	fmt.Println("%+v", req)
+	//	fmt.Println("%+v", err)
+	//	values := url.Values{}
+	//	values.Add("access_token", AccessToken)
+	//	req.URL.RawQuery = values.Encode()
 
-	values := url.Values{}
-	values.Add("access_token", AccessToken)
-	req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
