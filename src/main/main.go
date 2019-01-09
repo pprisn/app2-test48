@@ -31,7 +31,7 @@ var VerifyToken string
 var Port string
 
 //const FacebookEndPoint = "https://fb.me/Pprisnbot"
-const FacebookEndPoint = "https://m.me/Pprisnbot/"
+const FacebookEndPoint = "https://m.me/Pprisnbot"
 //m.me/Pprisnbot
 
 // WebTranslateURL url сервиса переводчика на русский с английского
@@ -278,7 +278,7 @@ func SendMessageToBot(botID string, rtext string) {
 	buffer.Write(sendMessageBody)
 	
 	//req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
-	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
+	req, err := http.NewRequest("POST", FacebookEndPoint, buffer, nil)
 	if err != nil {
 		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
 		log.Print(err)
@@ -291,7 +291,6 @@ func SendMessageToBot(botID string, rtext string) {
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 
 	log.Printf("req=%+v\n", req)
-
 	res, err := client.Do(req)
 	if err != nil {
 		log.Printf("Ошибка client.Do(req) req=%v\n", req)
