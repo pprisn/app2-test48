@@ -277,31 +277,35 @@ func SendMessageToBot(botID string, rtext string) {
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
 	
-	//req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
-	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
-	if err != nil {
-		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
-		log.Print(err)
-	}
+//	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
+//	if err != nil {
+//		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
+//		log.Print(err)
+//	}
+ //
+//	req.Header.Set("content-type", "application/json")
+//	client := &http.Client{Timeout: time.Duration(30 * time.Second),
+//		Transport: &http.Transport{
+//			TLSClientConfig: &tls.Config{
+//				InsecureSkipVerify: true,
+//			},
+//		},
+//      }
+//
+//	log.Printf("req=%+v\n", req)
+//	res, err := client.Do(req)
 
-	//values := url.Values{}
-	//values.Add("access_token", AccessToken)
-	//req.URL.RawQuery = values.Encode()
-        //req.Header.Set("content-type", "application/json")
-	req.Header.Set("content-type", "text/html")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second),
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,
 			},
 		},
-        }
+      }
+	res, err := client.Post(FacebookEndPoint, `application/json; charset=utf-8`, buffer)
 
-
-	log.Printf("req=%+v\n", req)
-	res, err := client.Do(req)
 	if err != nil {
-		log.Printf("Ошибка client.Do(req) req=%v\n", req)
+//		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
 	}
 
