@@ -272,7 +272,8 @@ func SendMessageToBot(botID string, rtext string) {
 	
 	buffer := new(bytes.Buffer)
 	params := url.Values{}
-	params.Set("access_token", AccessToken)
+//	params.Set("access_token", AccessToken)
+	params.Set("access_token", VerifyToken)
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
 	
