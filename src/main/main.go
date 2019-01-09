@@ -287,7 +287,8 @@ func SendMessageToBot(botID string, rtext string) {
 	//values := url.Values{}
 	//values.Add("access_token", AccessToken)
 	//req.URL.RawQuery = values.Encode()
-	req.Header.Add("Content-Type","application/json")
+        req.Header.Set("content-type", "application/json")
+	//req.Header.Add("Content-Type","application/json")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second),
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
