@@ -30,8 +30,8 @@ var AccessToken string
 var VerifyToken string
 var Port string
 
-const FacebookEndPoint = "https://fb.me/Pprisnbot"
-//const FacebookEndPoint = "https://m.me/Pprisnbot"
+//const FacebookEndPoint = "https://fb.me/Pprisnbot"
+const FacebookEndPoint = "https://m.me/Pprisnbot"
 
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
@@ -272,8 +272,8 @@ func SendMessageToBot(botID string, rtext string) {
 	
 	buffer := new(bytes.Buffer)
 	params := url.Values{}
-//	params.Set("access_token", AccessToken)
-	params.Set("access_token", VerifyToken)
+	params.Set("access_token", AccessToken)
+//	params.Set("access_token", VerifyToken)
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
 	
