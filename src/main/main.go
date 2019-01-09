@@ -2,7 +2,7 @@
 
 import (
 	"bytes"
-//	"crypto/tls"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -278,7 +278,7 @@ func SendMessageToBot(botID string, rtext string) {
 	buffer.Write(sendMessageBody)
 	
 	//req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
-	req, err := http.NewRequest("POST", FacebookEndPoint, buffer, nil)
+	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
 	if err != nil {
 		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
 		log.Print(err)
@@ -288,7 +288,15 @@ func SendMessageToBot(botID string, rtext string) {
 	//values.Add("access_token", AccessToken)
 	//req.URL.RawQuery = values.Encode()
 	req.Header.Add("Content-Type","application/json")
-	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
+
+	client := &http.Client{Timeout: time.Duration(30 * time.Second)
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+        }
+
 
 	log.Printf("req=%+v\n", req)
 	res, err := client.Do(req)
