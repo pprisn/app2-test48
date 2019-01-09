@@ -274,7 +274,7 @@ func SendMessageToBot(botID string, rtext string) {
 	params := url.Values{}
 	params.Set("access_token", AccessToken)
 	buffer.WriteString(params.Encode())
-	buffer.Write(sendMessageBody)
+	buffer.WriteString(sendMessageBody)
 	
 	//req, err := http.NewRequest("POST", FacebookEndPoint, bytes.NewBuffer(sendMessageBody))
 	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
@@ -291,7 +291,7 @@ func SendMessageToBot(botID string, rtext string) {
 
 	log.Printf("req=%+v\n", req)
 
-	res, err := client.Do(req,nil)
+	res, err := client.Do(req)
 	if err != nil {
 		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
