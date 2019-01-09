@@ -286,7 +286,7 @@ func SendMessageToBot(botID string, rtext string) {
 	//values := url.Values{}
 	//values.Add("access_token", AccessToken)
 	//req.URL.RawQuery = values.Encode()
-	req.Header.Add("Content-Type","application/json;charset=utf-8")
+	req.Header.Add("Content-Type:","application/json")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 
 	log.Printf("req=%+v\n", req)
@@ -310,69 +310,6 @@ func SendMessageToBot(botID string, rtext string) {
 	log.Print(result)
 }
 
-func sendTextMessage(senderID string, text string) {
-	//	let request_body = {
-	//		"recipient": {
-	//		  "id": sender_psid
-	//		},
-	//		"message": response
-	//	  }
-	//	  // Send the HTTP request to the Messenger Platform
-	//	  request({
-	//		"uri": "https://graph.facebook.com/v2.6/me/messages",
-	//		"qs": { "access_token": PAGE_ACCESS_TOKEN },
-	//		"method": "POST",
-	//		"json": request_body
-
-	recipient := new(Recipient)
-	//recipient := Recipient{}
-	recipient.ID = senderID
-	//send_message := new(SendMessage)
-	send_message := SendMessage{}
-	send_message.Recipient = *recipient
-	send_message.Message.Text = text
-
-	log.Printf("send_message: %v\n", send_message)
-
-	message := map[string]interface{}{
-		"access_token":   AccessToken,
-		"messaging_type": "RESPONSE",
-		"json":           send_message,
-	}
-
-	send_message_body, err := json.Marshal(message)
-	if err != nil {
-		log.Println("Marshal(send_message)", err)
-	}
-	log.Println(message)
-
-	var dialTimeout = time.Duration(30 * time.Second)
-	httpClient := &http.Client{
-		Timeout: dialTimeout,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		},
-	}
-
-	//	//httpClient := new(http.Client)
-	res, err := httpClient.Post(FacebookEndPoint, `application/json; charset=utf-8`, bytes.NewBuffer(send_message_body))
-
-	defer res.Body.Close()
-	var result map[string]interface{}
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Print("err ReadAll(res) %v\n", body)
-		log.Print(err)
-	}
-
-	log.Print("ReadAll(res) %+v \n", body)
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Print(err)
-	}
-	log.Print(result)
-}
 
 // Функция getJoke() string , возвращает строку с шуткой, полученной от сервиса  http://api.icndb.com/jokes/random?limitTo=[nerdy]
 func getJoke() string {
