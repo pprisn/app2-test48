@@ -272,7 +272,7 @@ func SendMessageToBot(botID string, rtext string) {
 	
 	buffer := new(bytes.Buffer)
 	params := url.Values{}
-	params.Set(`access_token`, AccessToken)
+	params.Set("access_token", AccessToken)
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
 	
@@ -286,12 +286,12 @@ func SendMessageToBot(botID string, rtext string) {
 	//values := url.Values{}
 	//values.Add("access_token", AccessToken)
 	//req.URL.RawQuery = values.Encode()
-	req.Header.Add(`"Content-Type"`, `"application/json; charset=UTF-8"`)
+	req.Header.Add("Content-Type","application/json;charset=utf-8")
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 
 	log.Printf("req=%+v\n", req)
 
-	res, err := client.Do(req)
+	res, err := client.Do(req,nil)
 	if err != nil {
 		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
