@@ -276,7 +276,7 @@ func SendMessageToBot(botID string, rtext string) {
 	//      params.Set(`messaging_type`,`RESPONSE`)
 	//	params.Set("access_token", VerifyToken)
 	buffer.WriteString(params.Encode())
-	buffer.Write(sendMessageBody)
+	buffer.Write('.'+sendMessageBody)
 
 		req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
 		if err != nil {
