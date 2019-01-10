@@ -33,7 +33,7 @@ var Port string
 
 //const FacebookEndPoint = "https://fb.me/Pprisnbot"
 //const FacebookEndPoint = "https://m.me/Pprisnbot"
-const FacebookEndPoint = "https://graph.facebook.com/v3.2/me"
+const FacebookEndPoint = "https://graph.facebook.com/v3.2/Pprisnbot"
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
