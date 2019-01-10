@@ -277,38 +277,40 @@ func SendMessageToBot(botID string, rtext string) {
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
 
-	//	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
-	//	if err != nil {
-	//		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
-	//		log.Print(err)
-	//	}
-	//
-	//	req.Header.Set("content-type", "application/json")
-	//	client := &http.Client{Timeout: time.Duration(30 * time.Second),
-	//		Transport: &http.Transport{
-	//			TLSClientConfig: &tls.Config{
-	//				InsecureSkipVerify: true,
-	//			},
-	//		},
-	//      }
-	//
-	//	log.Printf("req=%+v\n", req)
-	//	res, err := client.Do(req)
+		req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
+		if err != nil {
+			log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
+			log.Print(err)
+		}
+	
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Content-Length", strconv.FormatInt(buffer.Len(),10))
 
-	var dialTimeout = time.Duration(30 * time.Second)
-
-	client := &http.Client{
-		Timeout: dialTimeout,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
+		client := &http.Client{Timeout: time.Duration(30 * time.Second),
+			Transport: &http.Transport{
+				TLSClientConfig: &tls.Config{
+					InsecureSkipVerify: true,
+				},
 			},
-		},
-	}
-	res, err := client.Post(FacebookEndPoint, `application/json`, buffer)
+	      }
+	
+		log.Printf("req=%+v\n", req)
+		res, err := client.Do(req)
+
+//	var dialTimeout = time.Duration(30 * time.Second)
+//
+//	client := &http.Client{
+//		Timeout: dialTimeout,
+//		Transport: &http.Transport{
+//			TLSClientConfig: &tls.Config{
+//				InsecureSkipVerify: true,
+//			},
+//		},
+//	}
+//	res, err := client.Post(FacebookEndPoint, `application/json`, buffer)
 
 	if err != nil {
-		//		log.Printf("Ошибка client.Do(req) req=%v\n", req)
+		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
 	}
 
