@@ -140,7 +140,7 @@ type ButtonMessage struct {
 }
 
 type SendMessage struct {
-	Messaging_type string    `json:"messaging_type"`
+//	Messaging_type string    `json:"messaging_type"`
 	Recipient      Recipient `json:"recipient"`
 	Message        struct {
 		Text string `json:"text"`
@@ -258,7 +258,7 @@ func SendMessageToBot(botID string, rtext string) {
 	log.Printf("botID=%+v\n", botID)
 	recipient.ID = botID
 	sendMessage := new(SendMessage)
-	sendMessage.Messaging_type = `RESPONSE`
+//	sendMessage.Messaging_type = `RESPONSE`
 	sendMessage.Recipient = *recipient
 	sendMessage.Message.Text = rtext
 	log.Printf("sendMessage: %+v \n", sendMessage)
