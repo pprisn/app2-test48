@@ -285,7 +285,7 @@ func SendMessageToBot(botID string, rtext string) {
 		}
 	
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Content-Length", strconv.FormatInt(buffer.Len(),10))
+		req.Header.Set("Content-Length", strconv.FormatInt(int64(buffer.Len()),10))
 
 		client := &http.Client{Timeout: time.Duration(30 * time.Second),
 			Transport: &http.Transport{
