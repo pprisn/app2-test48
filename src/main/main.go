@@ -295,10 +295,10 @@ func SendMessageToBot(botID string, rtext string) {
 //	log.Printf("req=%+v\n", req)
 //	res, err := client.Do(req)
 
-	client := &http.Client{Timeout: time.Duration(30 * time.Second),
+	client := &http.Client{Timeout: time.Duration(20 * time.Second),
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
+				InsecureSkipVerify: false,
 			},
 		},
       }
