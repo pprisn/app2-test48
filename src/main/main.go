@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"bytes"
@@ -140,7 +140,7 @@ type ButtonMessage struct {
 }
 
 type SendMessage struct {
-//	Messaging_type string    `json:"messaging_type"`
+	Messaging_type string    `json:"messaging_type"`
 	Recipient      Recipient `json:"recipient"`
 	Message        struct {
 		Text string `json:"text"`
@@ -258,7 +258,7 @@ func SendMessageToBot(botID string, rtext string) {
 	log.Printf("botID=%+v\n", botID)
 	recipient.ID = botID
 	sendMessage := new(SendMessage)
-//	sendMessage.Messaging_type = `RESPONSE`
+	sendMessage.Messaging_type = `RESPONSE`
 	sendMessage.Recipient = *recipient
 	sendMessage.Message.Text = rtext
 	log.Printf("sendMessage: %+v \n", sendMessage)
@@ -268,34 +268,33 @@ func SendMessageToBot(botID string, rtext string) {
 		log.Println("err json.Marshal(sendMessage)")
 		log.Print(err)
 	}
-	
+
 	buffer := new(bytes.Buffer)
 	params := url.Values{}
 	params.Set(`access_token`, AccessToken)
-        params.Set(`messaging_type`,`RESPONSE`)
-//	params.Set("access_token", VerifyToken)
+	//      params.Set(`messaging_type`,`RESPONSE`)
+	//	params.Set("access_token", VerifyToken)
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
-	
-//	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
-//	if err != nil {
-//		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
-//		log.Print(err)
-//	}
- //
-//	req.Header.Set("content-type", "application/json")
-//	client := &http.Client{Timeout: time.Duration(30 * time.Second),
-//		Transport: &http.Transport{
-//			TLSClientConfig: &tls.Config{
-//				InsecureSkipVerify: true,
-//			},
-//		},
-//      }
-//
-//	log.Printf("req=%+v\n", req)
-//	res, err := client.Do(req)
 
-	
+	//	req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
+	//	if err != nil {
+	//		log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
+	//		log.Print(err)
+	//	}
+	//
+	//	req.Header.Set("content-type", "application/json")
+	//	client := &http.Client{Timeout: time.Duration(30 * time.Second),
+	//		Transport: &http.Transport{
+	//			TLSClientConfig: &tls.Config{
+	//				InsecureSkipVerify: true,
+	//			},
+	//		},
+	//      }
+	//
+	//	log.Printf("req=%+v\n", req)
+	//	res, err := client.Do(req)
+
 	var dialTimeout = time.Duration(30 * time.Second)
 
 	client := &http.Client{
@@ -306,10 +305,10 @@ func SendMessageToBot(botID string, rtext string) {
 			},
 		},
 	}
-	res, err := client.Post(FacebookEndPoint,`application/json; charset=utf-8`, buffer)
+	res, err := client.Post(FacebookEndPoint, `application/json`, buffer)
 
 	if err != nil {
-//		log.Printf("Ошибка client.Do(req) req=%v\n", req)
+		//		log.Printf("Ошибка client.Do(req) req=%v\n", req)
 		log.Print(err)
 	}
 
@@ -325,7 +324,6 @@ func SendMessageToBot(botID string, rtext string) {
 	}
 	log.Print(result)
 }
-
 
 // Функция getJoke() string , возвращает строку с шуткой, полученной от сервиса  http://api.icndb.com/jokes/random?limitTo=[nerdy]
 func getJoke() string {
