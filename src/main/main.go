@@ -258,7 +258,7 @@ func SendMessageToBot(botID string, rtext string) {
 	log.Printf("botID=%+v\n", botID)
 	recipient.ID = botID
 	sendMessage := new(SendMessage)
-	sendMessage.Messaging_type = "RESPONSE"
+	sendMessage.Messaging_type = `RESPONSE`
 	sendMessage.Recipient = *recipient
 	sendMessage.Message.Text = rtext
 	log.Printf("sendMessage: %+v \n", sendMessage)
@@ -268,11 +268,11 @@ func SendMessageToBot(botID string, rtext string) {
 		log.Println("err json.Marshal(sendMessage)")
 		log.Print(err)
 	}
-
 	
 	buffer := new(bytes.Buffer)
 	params := url.Values{}
-	params.Set("access_token", AccessToken)
+	params.Set(`access_token`, AccessToken)
+        params.Set(`messaging_type`,`RESPONSE`)
 //	params.Set("access_token", VerifyToken)
 	buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
@@ -295,14 +295,18 @@ func SendMessageToBot(botID string, rtext string) {
 //	log.Printf("req=%+v\n", req)
 //	res, err := client.Do(req)
 
-	client := &http.Client{Timeout: time.Duration(20 * time.Second),
+	
+	var dialTimeout = time.Duration(30 * time.Second)
+
+	client := &http.Client{
+		Timeout: dialTimeout,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: false,
+				InsecureSkipVerify: true,
 			},
 		},
-      }
-	res, err := client.Post(FacebookEndPoint, `application/json; charset=utf-8`, buffer)
+	}
+	res, err := client.Post(FacebookEndPoint,`application/json; charset=utf-8`, buffer)
 
 	if err != nil {
 //		log.Printf("Ошибка client.Do(req) req=%v\n", req)
