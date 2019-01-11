@@ -14,7 +14,6 @@ import (
 	"strings"
 //	"strconv"
 	"time"
-	"strings"
 
 	"github.com/gorilla/mux"
 
@@ -228,7 +227,7 @@ func getReplyMessage(receivedMessage string) string {
 		// Поступил запрос трэк номера RUSSIANPOST
 		message = req2russianpost(string(receivedMessage))
 		// Если в ОАСУ РПО не найдено отправление, ищем в РК
-		if strings.Contents(message, "Уточните"){
+		if strings.Contains(message, "Уточните"){
 			message = req2rkLipAttach(string(receivedMessage))	
 		}
 	} else if ValidTranslate.MatchString(receivedMessage) == true {
