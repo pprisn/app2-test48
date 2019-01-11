@@ -2,9 +2,9 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,7 +33,8 @@ var Port string
 
 //const FacebookEndPoint = "https://fb.me/Pprisnbot"
 //const FacebookEndPoint = "https://m.me/Pprisnbot"
-const FacebookEndPoint = "https://graph.facebook.com/v3.2/me/messages"
+const FacebookEndPoint = "https://graph.facebook.com/v3.2/me/messages?access_token=%s"
+
 // WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
@@ -271,23 +272,23 @@ func SendMessageToBot(botID string, rtext string) {
 	}
 
 	buffer := new(bytes.Buffer)
-	params := url.Values{}
-	params.Set(`access_token`, AccessToken)
+	//params := url.Values{}
+	//params.Set(`access_token`, AccessToken)
 	//      params.Set(`messaging_type`,`RESPONSE`)
 	//	params.Set("access_token", VerifyToken)
-	buffer.WriteString(params.Encode())
+	//buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
-
-		req, err := http.NewRequest("POST", FacebookEndPoint, buffer)
+                url := fmt.Sprintf(FacebookEndPoint, AccessToken)
+		req, err := http.NewRequest("POST", url, buffer)
 		if err != nil {
-			log.Printf("err http.NewRequest %v %v\n", FacebookEndPoint, sendMessageBody)
+			log.Printf("err http.NewRequest %v %v\n", url, sendMessageBody)
 			log.Print(err)
 		}
 	
-		req.Header.Set("Content-Type", "application/json")
+		req.Header.Add("Content-Type", "application/json")
 //		req.Header.Set("Content-Length", strconv.FormatInt(int64(buffer.Len()),10))
-
-		client := &http.Client{Timeout: time.Duration(30 * time.Second),
+		var dialTimeout = time.Duration(30 * time.Second)
+		client := &http.Client{Timeout: dialTimeout,
 			Transport: &http.Transport{
 				TLSClientConfig: &tls.Config{
 					InsecureSkipVerify: true,
