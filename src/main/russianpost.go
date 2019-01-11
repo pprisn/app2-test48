@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	//"log"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -199,6 +199,7 @@ func req2russianpost(barcode string) string {
 	envelope := Envelope{}
 	err = xml.Unmarshal(htmlData, &envelope)
 	if err != nil {
+		log.Print(htmlData)
 		return fmt.Sprintf("Извините, возникла ошибка:%v", err.Error())
 
 	}
