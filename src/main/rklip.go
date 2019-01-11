@@ -105,7 +105,7 @@ func req2rkLip(barcode string) string {
 	}
 	err_trk := json.Unmarshal(htmlData, &trk)
 	if err_trk != nil {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, API РегионКурьера изменилось, а pprisn_bot не в курсе, вы можете сообщить о проблеме по адресу pprisn@yandex.ru."))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, API РегионКурьера изменилось, вы можете сообщить о проблеме по адресу pprisn@yandex.ru."))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		return sDelivstatus
 		//log.Fatal(err_trk)
@@ -118,11 +118,11 @@ func req2rkLip(barcode string) string {
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Штрих код           %v\t", trk[0].Barcode))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Почтовое отделение  %v\t", trk[0].Postoffice))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочное ОПС     %v\t", trk[0].Postoffice))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
