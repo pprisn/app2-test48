@@ -8,13 +8,6 @@
 			"branch": "master"
 		},
 		{
-			"importpath": "golang.org/x/net/html",
-			"repository": "https://go.googlesource.com/net",
-			"revision": "915654e7eabcea33ae277abbecf52f0d8b7a9fdc",
-			"branch": "master",
-			"path": "/html"
-		},
-		{
 			"importpath": "golang.org/x/net/html/charset",
 			"repository": "https://go.googlesource.com/net",
 			"revision": "915654e7eabcea33ae277abbecf52f0d8b7a9fdc",
