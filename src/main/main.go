@@ -226,6 +226,10 @@ func getReplyMessage(receivedMessage string) string {
 	} else if ValidRUSSIANPOST.MatchString(receivedMessage) == true {
 		// Поступил запрос трэк номера RUSSIANPOST
 		message = req2russianpost(string(receivedMessage))
+		// Если в ОАСУ РПО не найдено отправление, ищем в РК
+		if strings.Contents(message, "Уточните"){
+			message = req2rkLipAttach(string(receivedMessage))	
+		}
 	} else if ValidTranslate.MatchString(receivedMessage) == true {
 		// Поступил запрос текста на английском - переведем его.
 		message = getTranslate(receivedMessage)
