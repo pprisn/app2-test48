@@ -7,18 +7,19 @@ import (
 	"time"
 
 	//	"encoding/base64"
+	"bufio"
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
 	"io"
-	"bufio"
+	"io/ioutil"
+
 	//"log"
 	"net/http"
 	"strings"
 
-	"golang.org/x/text/encoding/htmlindex"
-	"golang.org/x/net/html/charset"
 	"golang.org/x/net/html"
+	"golang.org/x/net/html/charset"
+	"golang.org/x/text/encoding/htmlindex"
 )
 
 //https://www.onlinetool.io/xmltogo/
@@ -206,9 +207,9 @@ func req2russianpost(barcode string) string {
 	if err != nil {
 		b := new(bytes.Buffer)
 		b.Write(htmlData)
-                body, err := Decode(b,"utf-8")
-		if err != nil{ 
- 			return fmt.Sprintf("Извините, возникла ошибка:%v", err.Error())
+		body, err := Decode(b, "utf-8")
+		if err != nil {
+			return fmt.Sprintf("Извините, возникла ошибка:%v", err.Error())
 		}
 		return fmt.Sprintf("%v", body)
 
@@ -241,37 +242,36 @@ func req2russianpost(barcode string) string {
 
 }
 
-
 func detectContentCharset(body io.Reader) string {
-    r := bufio.NewReader(body)
-    if data, err := r.Peek(1024); err == nil {
-        if _, name, ok := charset.DetermineEncoding(data, ""); ok {
-            return name
-        }
-    }
-    return "utf-8"
+	r := bufio.NewReader(body)
+	if data, err := r.Peek(1024); err == nil {
+		if _, name, ok := charset.DetermineEncoding(data, ""); ok {
+			return name
+		}
+	}
+	return "utf-8"
 }
 
 // Decode parses the HTML body on the specified encoding and
 // returns the HTML Document.
 func Decode(body io.Reader, charset string) (interface{}, error) {
-    if charset == "" {
-        charset = detectContentCharset(body)
-    }
-    e, err := htmlindex.Get(charset)
-    if err != nil {
-        return nil, err
-    }
+	if charset == "" {
+		charset = detectContentCharset(body)
+	}
+	e, err := htmlindex.Get(charset)
+	if err != nil {
+		return nil, err
+	}
 
-    if name, _ := htmlindex.Name(e); name != "utf-8" {
-        body = e.NewDecoder().Reader(body)
-    }
+	if name, _ := htmlindex.Name(e); name != "utf-8" {
+		body = e.NewDecoder().Reader(body)
+	}
 
-    node, err := html.Parse(body)
-    if err != nil {
-        return nil, err
-    }
-    return node, nil
+	node, err := html.Parse(body)
+	if err != nil {
+		return nil, err
+	}
+	return node, nil
 }
 
 //

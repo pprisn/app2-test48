@@ -14,7 +14,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "%s",
 		`<h2>
-	Web Site Terms and Conditions of Use
+		Web Site on Facebook - Pprisn_bot-"search mailings" https://m.me/Pprisnbot and conditions of Use
 </h2>
 
 <h3>
@@ -31,18 +31,18 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
 <ol type="a">
 	<li>
-		Permission is allowed to temporarily download one duplicate of the materials (data or programming) on ООО Оптимальные технологии's site for individual and non-business use only. This is the just a permit of license and not an exchange of title, and under this permit you may not: 
+		Permission is allowed to temporarily download one duplicate of the materials (data or programming) on Developer's site for individual and non-business use only. This is the just a permit of license and not an exchange of title, and under this permit you may not: 
 		
 		<ol type="i">
 			<li>modify or copy the materials;</li>
 			<li>use the materials for any commercial use , or for any public presentation (business or non-business); </li>
-			<li>attempt to decompile or rebuild any product or material contained on ООО Оптимальные технологии's site;</li>
+			<li>attempt to decompile or rebuild any product or material contained on Developer's site;</li>
 			<li>remove any copyright or other restrictive documentations from the materials; or</li>
 			<li>transfer the materials to someone else or even "mirror" the materials on other server.</li>
 		</ol>
 	</li>
 	<li>
-		This permit might consequently be terminated if you disregard any of these confinements and may be ended by ООО Оптимальные технологии whenever deemed. After permit termination or when your viewing permit is terminated, you must destroy any downloaded materials in your ownership whether in electronic or printed form.
+		This permit might consequently be terminated if you disregard any of these confinements and may be ended by Developer whenever deemed. After permit termination or when your viewing permit is terminated, you must destroy any downloaded materials in your ownership whether in electronic or printed form.
 	</li>
 </ol>
 
@@ -52,7 +52,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
 <ol type="a">
 	<li>
-		The materials on ООО Оптимальные технологии's site are given "as is". ООО Оптимальные технологии makes no guarantees, communicated or suggested, and thus renounces and nullifies every single other warranties, including without impediment, inferred guarantees or states of merchantability, fitness for a specific reason, or non-encroachment of licensed property or other infringement of rights. Further, ООО Оптимальные технологии does not warrant or make any representations concerning the precision, likely results, or unwavering quality of the utilization of the materials on its Internet site or generally identifying with such materials or on any destinations connected to this website. 
+		The materials on Developer's site are given "as is". Developer makes no guarantees, communicated or suggested, and thus renounces and nullifies every single other warranties, including without impediment, inferred guarantees or states of merchantability, fitness for a specific reason, or non-encroachment of licensed property or other infringement of rights. Further, Developer does not warrant or make any representations concerning the precision, likely results, or unwavering quality of the utilization of the materials on its Internet site or generally identifying with such materials or on any destinations connected to this website. 
 	</li>
 </ol>
 
@@ -61,7 +61,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 </h3>
 
 <p>
-	In no occasion should ООО Оптимальные технологии or its suppliers subject for any harms (counting, without constraint, harms for loss of information or benefit, or because of business interference,) emerging out of the utilization or powerlessness to utilize the materials on ООО Оптимальные технологии's Internet webpage, regardless of the possibility that ООО Оптимальные технологии or a ООО Оптимальные технологии approved agent has been told orally or in written of the likelihood of such harm. Since a few purviews don't permit constraints on inferred guarantees, or impediments of obligation for weighty or coincidental harms, these confinements may not make a difference to you. 
+	In no occasion should Developer or its suppliers subject for any harms (counting, without constraint, harms for loss of information or benefit, or because of business interference,) emerging out of the utilization or powerlessness to utilize the materials on Developer's Internet webpage, regardless of the possibility that Developer or a Developer approved agent has been told orally or in written of the likelihood of such harm. Since a few purviews don't permit constraints on inferred guarantees, or impediments of obligation for weighty or coincidental harms, these confinements may not make a difference to you. 
 </p>
 
 <h3>
@@ -69,7 +69,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 </h3>
 
 <p>
-	The materials showing up on ООО Оптимальные технологии's site could incorporate typographical, or photographic mistakes. ООО Оптимальные технологии does not warrant that any of the materials on its site are exact, finished, or current. ООО Оптимальные технологии may roll out improvements to the materials contained on its site whenever without notification. ООО Оптимальные технологии does not, then again, make any dedication to update the materials. 
+	The materials showing up on Developer's site could incorporate typographical, or photographic mistakes. Developer does not warrant that any of the materials on its site are exact, finished, or current. Developer may roll out improvements to the materials contained on its site whenever without notification. Developer does not, then again, make any dedication to update the materials. 
 </p>
 
 <h3>
@@ -77,7 +77,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 </h3>
 
 <p>
-	ООО Оптимальные технологии has not checked on the majority of the websites or links connected to its website and is not in charge of the substance of any such connected webpage. The incorporation of any connection does not infer support by ООО Оптимальные технологии of the site. Utilization of any such connected site is at the user's own risk.
+Developer has not checked on the majority of the websites or links connected to its website and is not in charge of the substance of any such connected webpage. The incorporation of any connection does not infer support by Developer of the site. Utilization of any such connected site is at the user's own risk.
 </p>
 
 <h3>
@@ -85,7 +85,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 </h3>
 
 <p>
-	ООО Оптимальные технологии may update these terms of utilization for its website whenever without notification. By utilizing this site you are consenting to be bound by the then current form of these Terms and Conditions of Use. 
+Developer may update these terms of utilization for its website whenever without notification. By utilizing this site you are consenting to be bound by the then current form of these Terms and Conditions of Use. 
 </p>
 
 <h3>
@@ -93,7 +93,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 </h3>
 
 <p>
-	Any case identifying with ООО Оптимальные технологии's site should be administered by the laws of the country of Russia ООО Оптимальные технологии State without respect to its contention of law provisions. 
+	Any case identifying with Developer's site should be administered by the laws of the country of Russia Developer State without respect to its contention of law provisions. 
 </p>
 
 <p>
@@ -136,7 +136,5 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 	We are focused on leading our business as per these standards with a specific end goal to guarantee that the privacy of individual data is secure and maintained. 
 </p>
 `)
-
-	//	fmt.Fprintln(w, string(body))
 
 }

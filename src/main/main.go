@@ -2,9 +2,9 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"crypto/tls"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -12,11 +12,11 @@ import (
 	"os"
 	"regexp"
 	"strings"
-//	"strconv"
+
+	//	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
-
 )
 
 // Keytg ключ бота Facebook
@@ -219,7 +219,6 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Success")
 }
 
-
 // TODO: Reply message is just sample and made by easy logic, need to enhance the logic.
 func getReplyMessage(receivedMessage string) string {
 	var message string
@@ -232,8 +231,8 @@ func getReplyMessage(receivedMessage string) string {
 		// Поступил запрос трэк номера RUSSIANPOST
 		message = req2russianpost(string(receivedMessage))
 		// Если в ОАСУ РПО не найдено отправление, ищем в РК
-		if strings.Contains(message, "Уточните"){
-			message = req2rkLipAttach(string(receivedMessage))	
+		if strings.Contains(message, "Уточните") {
+			message = req2rkLipAttach(string(receivedMessage))
 		}
 	} else if ValidTranslate.MatchString(receivedMessage) == true {
 		// Поступил запрос текста на английском - переведем его.
@@ -281,38 +280,38 @@ func SendMessageToBot(botID string, rtext string) {
 	//	params.Set("access_token", VerifyToken)
 	//buffer.WriteString(params.Encode())
 	buffer.Write(sendMessageBody)
-                url := fmt.Sprintf(FacebookEndPoint, AccessToken)
-		req, err := http.NewRequest("POST", url, buffer)
-		if err != nil {
-			log.Printf("err http.NewRequest %v %v\n", url, sendMessageBody)
-			log.Print(err)
-		}
-	
-		req.Header.Add("Content-Type", "application/json")
-//		req.Header.Set("Content-Length", strconv.FormatInt(int64(buffer.Len()),10))
-		var dialTimeout = time.Duration(30 * time.Second)
-		client := &http.Client{Timeout: dialTimeout,
-			Transport: &http.Transport{
-				TLSClientConfig: &tls.Config{
-					InsecureSkipVerify: true,
-				},
-			},
-	      }
-	
-		log.Printf("req=%+v\n", req)
-		res, err := client.Do(req)
+	url := fmt.Sprintf(FacebookEndPoint, AccessToken)
+	req, err := http.NewRequest("POST", url, buffer)
+	if err != nil {
+		log.Printf("err http.NewRequest %v %v\n", url, sendMessageBody)
+		log.Print(err)
+	}
 
-//	var dialTimeout = time.Duration(30 * time.Second)
-//
-//	client := &http.Client{
-//		Timeout: dialTimeout,
-//		Transport: &http.Transport{
-//			TLSClientConfig: &tls.Config{
-//				InsecureSkipVerify: true,
-//			},
-//		},
-//	}
-//	res, err := client.Post(FacebookEndPoint, `application/json`, buffer)
+	req.Header.Add("Content-Type", "application/json")
+	//		req.Header.Set("Content-Length", strconv.FormatInt(int64(buffer.Len()),10))
+	var dialTimeout = time.Duration(30 * time.Second)
+	client := &http.Client{Timeout: dialTimeout,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+
+	log.Printf("req=%+v\n", req)
+	res, err := client.Do(req)
+
+	//	var dialTimeout = time.Duration(30 * time.Second)
+	//
+	//	client := &http.Client{
+	//		Timeout: dialTimeout,
+	//		Transport: &http.Transport{
+	//			TLSClientConfig: &tls.Config{
+	//				InsecureSkipVerify: true,
+	//			},
+	//		},
+	//	}
+	//	res, err := client.Post(FacebookEndPoint, `application/json`, buffer)
 
 	if err != nil {
 		log.Printf("Ошибка client.Do(req) req=%v\n", req)
@@ -383,7 +382,7 @@ func getTranslate(mytext string) string {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/webhook", webhookEndpoint)
-        r.HandleFunc("/Policy",webhookPolicy)
+	r.HandleFunc("/Policy", webhookPolicy)
 	if err := http.ListenAndServe(":"+Port, r); err != nil {
 		log.Fatal(err)
 	}
