@@ -174,9 +174,9 @@ func webhookEndpoint(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func webhookPolicy(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello :)")
-}
+//func webhookPolicy(w http.ResponseWriter, r *http.Request) {
+//	fmt.Fprintln(w, "Hello :)")
+//}
 
 //curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
 func verifyTokenAction(w http.ResponseWriter, r *http.Request) {
@@ -241,13 +241,6 @@ func getReplyMessage(receivedMessage string) string {
 	} else {
 		message = `Уточните Штриховой Почтовый Идентификатор, пожалуйста. И повторите запрос.`
 	}
-	//	if strings.Contains(receivedMessage, "TEST") {
-	//		message = "Вы запросили TEST"
-	//	} else if strings.Contains(receivedMessage, "TEST1") {
-	//		message = "Вы запросили TEST1"
-	//	} else {
-	//		message = " Ваше сообщение принято"
-	//	}
 	return message
 }
 
