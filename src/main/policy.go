@@ -1,18 +1,21 @@
 ﻿package main
+
 import (
 	"fmt"
-//	"log"
+	//	"log"
 	"net/http"
 )
 
 func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
-//https://connectio.io/privacy-policy-generator/
+	//https://connectio.io/privacy-policy-generator/
 
+	w.Header().Set("Access-Control-Allow-Headers",
+		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
-fmt.Fprintf(w,"%s", string(
+	fmt.Fprintf(w, "%s", string(
 
-`<h2>
+		`<h2>
 	Web Site Terms and Conditions of Use
 </h2>
 
@@ -134,9 +137,8 @@ fmt.Fprintf(w,"%s", string(
 <p>
 	We are focused on leading our business as per these standards with a specific end goal to guarantee that the privacy of individual data is secure and maintained. 
 </p>
-`) )
+`))
 
-//	fmt.Fprintln(w, string(body))
+	//	fmt.Fprintln(w, string(body))
 
 }
-
