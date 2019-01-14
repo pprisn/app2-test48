@@ -14,7 +14,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "%s",
 		`<h2>
-		Web Site on Facebook - Pprisn_bot-"search mailings" https://m.me/Pprisnbot and conditions of Use
+		Web Site for Facebook Messenger- Pprisn_bot-"search mailings" https://m.me/Pprisnbot and conditions of Use
 </h2>
 
 <h3>
