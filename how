@@ -1,0 +1,510 @@
+[33mcommit 4b5947fb03f13012dd3b77f0dbb2e355e57511a3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Попурей Сергей Николаевич <Sergey.Popurey@main.russianpost.ru>
+Date:   Fri Jan 11 08:30:42 2019 +0300
+
+    url
+
+[33mcommit ff63fab28fd095af27a6593ae88dcfa653280698[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Fri Jan 11 00:15:22 2019 +0300
+
+    graph
+
+[33mcommit f0668054e6cf73da4cd25d48236773dd67049dbc[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Fri Jan 11 00:08:12 2019 +0300
+
+    graph
+
+[33mcommit 1c2957de5cfbe4eb831503ea40819b1abd40877d[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Fri Jan 11 00:05:39 2019 +0300
+
+    graph
+
+[33mcommit bc40a8fdd6ad4fae135ce9ea8af027f590e0a790[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:46:53 2019 +0300
+
+    graph
+
+[33mcommit fecf563f5220f993fb586ca09c4ba9082c76062a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:45:56 2019 +0300
+
+    graph
+
+[33mcommit 718df3b41a567c7c607178a754b9966850030371[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:42:51 2019 +0300
+
+    graph
+
+[33mcommit 312929209d591101395d03f8c8a1678b16ff06ae[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:32:24 2019 +0300
+
+    graph
+
+[33mcommit 02f8fee374727e2c31efd8a1ece0e9a74e2df6a7[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:30:12 2019 +0300
+
+    graph
+
+[33mcommit 4c8760bb095b10ffa08afb37ba84e290094238b4[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 23:12:50 2019 +0300
+
+    graph
+
+[33mcommit d2609e18271d348048a703e665313c184ca3ca19[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 21:48:16 2019 +0300
+
+    graph
+
+[33mcommit d0264d117c467800d02cf9e81be9d2b9ed4cfffe[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 21:41:58 2019 +0300
+
+    graph
+
+[33mcommit 74a1ebf64fad1fe4933e19f847f6a87dbdd17965[m
+Merge: af7f43a 895d0ca
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 21:38:35 2019 +0300
+
+    Merge branch 'master' of https://github.com/pprisn/app2-test48
+
+[33mcommit af7f43a0393d7e21d3371674e08142a76ed57114[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 21:37:47 2019 +0300
+
+    graph
+
+[33mcommit 895d0ca2c06b4ef52d48478ca01e4ebf1d537447[m
+Author: Попурей Сергей Николаевич <Sergey.Popurey@main.russianpost.ru>
+Date:   Thu Jan 10 12:30:45 2019 +0300
+
+    buffer
+
+[33mcommit 9c51b565af3ad0cb038282926ce58608f15eb98f[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 06:39:50 2019 +0300
+
+    param...
+
+[33mcommit a955408a3f1fa58e4a8e90aebfc0e21b228d5046[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 06:34:34 2019 +0300
+
+    param...
+
+[33mcommit 63812878c284920e36803ad6c024a0e645373ee5[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 06:29:11 2019 +0300
+
+    param...
+
+[33mcommit 7f172234550eab4e3c241b99946c21f4931e2d43[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Thu Jan 10 06:10:39 2019 +0300
+
+    insecure verify...
+
+[33mcommit 7f2ba30fb72e781a58c5cef11ae268337a3983d3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 23:34:32 2019 +0300
+
+    AccessTokin...
+
+[33mcommit c124fc6482589415a6819b53802d4532e06e1a76[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 23:27:26 2019 +0300
+
+    Verify...
+
+[33mcommit 201e48459f0e41666d020bf359c95760fbd6bf4e[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 23:16:38 2019 +0300
+
+    client.Post...
+
+[33mcommit 046cd2e591f6ea43c02c6eeabdeea434ee50fcbb[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 23:11:16 2019 +0300
+
+    client.Post...
+
+[33mcommit 55f086d3e354e045907e835f6ede0840f91f68ad[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 23:01:01 2019 +0300
+
+    Set.Header(content-type...
+
+[33mcommit 0660b2a61d825edf349fd3775baf6e74fe7c2e0c[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 22:31:34 2019 +0300
+
+    Set.Header(content-type...
+
+[33mcommit ba7bd5d87f743e89c0ef43f3963b9a6a296429c0[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 22:17:34 2019 +0300
+
+    Set.Header(content-type...
+
+[33mcommit a75872712234bf9ecf158d2ca39200c743183835[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 22:13:01 2019 +0300
+
+    Set.Header(content-type...
+
+[33mcommit eae97140abe116cdff2b0108ee0072b4e2dd7ec3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:51:01 2019 +0300
+
+    p
+
+[33mcommit 0132afa98258dbde977013657e2d8ee0daba3a4a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:48:13 2019 +0300
+
+    p
+
+[33mcommit 8128ddbe5fd41e66c26f35280dfb7b171bb68254[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:43:47 2019 +0300
+
+    p
+
+[33mcommit 71efc58d88c4c05b6ebb7aa8ddf900e6edefca16[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:39:16 2019 +0300
+
+    p
+
+[33mcommit 33069a088c19155c7b2377fed1b9ff627d4ea34a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:35:14 2019 +0300
+
+    p
+
+[33mcommit 7fa3fca33614e835a16348414a8e0641eb37365a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:32:12 2019 +0300
+
+    p
+
+[33mcommit 1d2c7c2d19d34453123c1209013ec0a9def6410c[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 21:30:52 2019 +0300
+
+    p
+
+[33mcommit 467cdfc93c5252a0668af76b69f9640e4208b6fc[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 19:47:02 2019 +0300
+
+    p
+
+[33mcommit a4fc78f6df21c524506f50cfb70c32e77dc07cec[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 19:46:15 2019 +0300
+
+    p
+
+[33mcommit e3eab513e7ce7171884e6bde1c078160dc34e78a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 19:45:03 2019 +0300
+
+    p
+
+[33mcommit 963835b2a5c62049e59dd4e953e86a767d889d16[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 19:40:02 2019 +0300
+
+    p
+
+[33mcommit c6f5ce8b1d87ad885b40cace1d0086e52a6e158e[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Wed Jan 9 19:34:31 2019 +0300
+
+    test
+
+[33mcommit 556ab8c174d05bac788533aec8ff753e8377613b[m
+Author: Попурей Сергей Николаевич <Sergey.Popurey@main.russianpost.ru>
+Date:   Wed Jan 9 17:24:24 2019 +0300
+
+    buffer, params:=url.Valuer{}
+
+[33mcommit 6f8a6c7579605ee8468b51385867e5b5fa4a132d[m
+Author: Попурей Сергей Николаевич <Sergey.Popurey@main.russianpost.ru>
+Date:   Wed Jan 9 12:00:43 2019 +0300
+
+    //Header.Set(Content-Type, mime)
+
+[33mcommit c724d54c70d95d58ca7ec5997b38006ff64ba047[m
+Author: Попурей Сергей Николаевич <Sergey.Popurey@main.russianpost.ru>
+Date:   Wed Jan 9 09:58:35 2019 +0300
+
+    Header.Set(Content-Type, mime)
+
+[33mcommit dc023dcca6355c72f095f0073b482abf10803a59[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 23:13:32 2019 +0300
+
+    test
+
+[33mcommit b327ab3ef065a87b90f85a2afd4800c86fb70c26[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 23:06:42 2019 +0300
+
+    test
+
+[33mcommit 99c4297f626d47d9f3976b4e479af1f62054f593[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 23:05:27 2019 +0300
+
+    test
+
+[33mcommit 460b0e7939f995baa408c443d1d0dc6f73dc1f70[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 20:48:28 2019 +0300
+
+    test
+
+[33mcommit 9af6100d59aa89ab8066241c2cf7365eb1f4aeea[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 20:41:36 2019 +0300
+
+    test
+
+[33mcommit 50a69a27ccb9ca3a910eb51d75f9a2acc273ec38[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 20:27:14 2019 +0300
+
+    test
+
+[33mcommit eeece44799757efb2532c4d79f32760412768891[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 20:20:32 2019 +0300
+
+    test
+
+[33mcommit 699daa149ad44ab9d6d3d2ae317d506ce865b390[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 20:07:44 2019 +0300
+
+    test
+
+[33mcommit f31902081428cb533a9aa99d99f2b0a96e318bf1[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 19:53:58 2019 +0300
+
+    test
+
+[33mcommit b5caa29fb96fa2eec130b5e49f7a3bf6b16a0c4a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 19:46:01 2019 +0300
+
+    test
+
+[33mcommit f24849909f225a06f0f823b85ff2d123042e94a0[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 14:14:56 2019 +0300
+
+    test
+
+[33mcommit c0b424ab88ce11a322411f67eecc67b2ab25a0fa[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 14:05:17 2019 +0300
+
+    test
+
+[33mcommit bc927a9ac7b6a4e36a3c3b73babccbff3e03d044[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 12:43:01 2019 +0300
+
+    test
+
+[33mcommit 10fb25373e385d4440adbcb64a5173b227487771[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 12:17:14 2019 +0300
+
+    test
+
+[33mcommit 0e5b27279927bca8b4babf87cb0422d87e97a373[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 12:09:56 2019 +0300
+
+    test
+
+[33mcommit e41a4850c8f11c8d94074e07aabb98ad9748ca96[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 11:14:11 2019 +0300
+
+    test
+
+[33mcommit 4473dc9a84480ba4777534e3d017beefd8336698[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 11:07:17 2019 +0300
+
+    test
+
+[33mcommit 54a135daf3acec6be1df842746c9781fea6323d3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 10:34:49 2019 +0300
+
+    test
+
+[33mcommit c8dc2c6997b31377f67bb201b37b858edb519802[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 01:29:42 2019 +0300
+
+    test
+
+[33mcommit 6bc0c974168646130eca39c47f95a10bad47dae5[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 01:15:55 2019 +0300
+
+    test
+
+[33mcommit fc972260ddd55d7d4329132cbdcf1465d0e4d18d[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 01:06:00 2019 +0300
+
+    test
+
+[33mcommit 4e7cc412e01dd0a17771801407ff071a9893fe33[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Tue Jan 8 00:53:03 2019 +0300
+
+    test
+
+[33mcommit b14daa4c3fd98da3698cd4417d8d1a6b32f09d6e[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Mon Jan 7 23:45:52 2019 +0300
+
+    test
+
+[33mcommit 90eb47375e9197a10dbac5db3d9d1ecc5f14a68f[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Mon Jan 7 23:04:29 2019 +0300
+
+    test
+
+[33mcommit 0eaf6f685e3517319d3df8c02a2ef5e2ce425759[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Mon Jan 7 22:57:28 2019 +0300
+
+    test
+
+[33mcommit 8eea6a4e7770f110650531a53cdc10dcd260d288[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Mon Jan 7 22:16:30 2019 +0300
+
+    first test
+
+[33mcommit f499c00cf66b90d443698eb8229dedd3293b990c[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Mon Jan 7 22:07:37 2019 +0300
+
+    first test
+
+[33mcommit ad3b4e760062c1bd9916dd7fd06223474fb365d3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 15:56:45 2019 +0300
+
+    update project
+
+[33mcommit ce27761ad461ab0e6c2208950416afd6c0835cca[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 15:44:46 2019 +0300
+
+    update project
+
+[33mcommit 7e1cbe89cebdc99163ca95cf5ef8909cd4ba9eb3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 14:14:24 2019 +0300
+
+    m
+
+[33mcommit 733b3aaf8df19ed8e1771a388018750d5d19e30a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 14:12:54 2019 +0300
+
+    m
+
+[33mcommit 6d47d21ef7e8623a1c0ccdf94a938c59de6bf791[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 14:02:12 2019 +0300
+
+    m
+
+[33mcommit a49cbd4255a6d6f350c5d6aa9e7da75826fe6ff3[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 13:12:08 2019 +0300
+
+    m
+
+[33mcommit 2390febbebbbd594af08c9381acfaaa97ba1a040[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 13:02:13 2019 +0300
+
+    mess
+
+[33mcommit 06d93bf886f604a69384e3a77a45d0a5c8a309d0[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 08:41:13 2019 +0300
+
+    mess
+
+[33mcommit 0545d92e57d33148d1d539c5c02c3da6736e250e[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 02:11:41 2019 +0300
+
+    make app2-test48
+
+[33mcommit f2b6f18c66ce63d48276899cc51727cb4c7d9a5b[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 02:04:42 2019 +0300
+
+    make app2-test48
+
+[33mcommit af3ca0306cee9bff21d41bafe0a0a74913e4ae6c[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 01:53:25 2019 +0300
+
+    make app2-test48
+
+[33mcommit 718032bc0fc51d8ed0e5e52b6c7174f30ff61d4b[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 01:34:57 2019 +0300
+
+    make app2-test48
+
+[33mcommit 678e7d36fa28cd1dc2d8c931c86dff30362d5dc2[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 01:00:40 2019 +0300
+
+    make app2-test48+
+
+[33mcommit 6ab3bde4a3bab21935d3361433f9ed24444ab032[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 00:55:10 2019 +0300
+
+    make app2-test48
+
+[33mcommit 8412140aa712ea512006f22064f1365a350b0f5a[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sun Jan 6 00:48:12 2019 +0300
+
+    make app2-test48
+
+[33mcommit 03046fe37c4b12f038ebc2e86672d993e2d184e8[m
+Author: Popurey Sergey <pprisn@yandex.ru>
+Date:   Sat Jan 5 23:17:04 2019 +0300
+
+    make app2-test48
