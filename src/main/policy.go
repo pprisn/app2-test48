@@ -10,7 +10,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 //https://connectio.io/privacy-policy-generator/
 
 
-fmt.Fprintf(w,"%s", 
+fmt.Fprintf(w,"%s", string(
 
 `<h2>
 	Web Site Terms and Conditions of Use
@@ -134,7 +134,7 @@ fmt.Fprintf(w,"%s",
 <p>
 	We are focused on leading our business as per these standards with a specific end goal to guarantee that the privacy of individual data is secure and maintained. 
 </p>
-` )
+`) )
 
 //	fmt.Fprintln(w, string(body))
 
