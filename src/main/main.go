@@ -174,6 +174,10 @@ func webhookEndpoint(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func webhookPolicy(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Hello :)")
+}
+
 //curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
 func verifyTokenAction(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("hub.verify_token") == VerifyToken {
@@ -214,6 +218,7 @@ func webhookPostAction(w http.ResponseWriter, r *http.Request) {
 	}
 	//fmt.Fprintf(w, "Success")
 }
+
 
 // TODO: Reply message is just sample and made by easy logic, need to enhance the logic.
 func getReplyMessage(receivedMessage string) string {
@@ -385,6 +390,7 @@ func getTranslate(mytext string) string {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/webhook", webhookEndpoint)
+        r.HandleFunc("/Policy",webhookPolicy)
 	if err := http.ListenAndServe(":"+Port, r); err != nil {
 		log.Fatal(err)
 	}
