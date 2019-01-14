@@ -10,8 +10,7 @@ func webhookPolicy(w http.ResponseWriter, r *http.Request) {
 
 	//https://connectio.io/privacy-policy-generator/
 
-	w.Header().Set("Access-Control-Allow-Headers",
-		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	fmt.Fprintf(w, "%s", string(
 
