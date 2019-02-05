@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
+//	"regexp"
 	"strings"
 )
 
@@ -30,6 +30,8 @@ var Delivstatnames = map[string]string{
 type RKResp []struct {
 	Barcode            string `json:"barcode"`
 	Attachment         string `json:"attachment"`
+	Whom               string `json:"whom"`
+	Address            string `json:"address"`
 	Postoffice         string `json:"postoffice"`
 	DeliverySite       string `json:"delivery_site"`
 	ReceiptDate        string `json:"receipt_date"`
@@ -39,9 +41,10 @@ type RKResp []struct {
 }
 
 func RKResp2nilbyte() []byte {
-	data := []byte(`[{"barcode":"","attachment":"","postoffice":"","delivery_site":"","receipt_date":"","delivery_status":"","delivery_status_name":"","delivery_date":""}]`)
+	data := []byte(`[{"barcode":"","attachment":"","whom":"","address":"","postoffice":"","delivery_site":"","receipt_date":"","delivery_status":"","delivery_status_name":"","delivery_date":""}]`)
 	return data
 }
+
 
 func req2rkLip(barcode string) string {
 
@@ -94,15 +97,19 @@ func req2rkLip(barcode string) string {
 	}
 
 	defer resp.Body.Close()
+	//удалим все \n\t\r из полученных данных
+	htmlData = []byte(strings.TrimSpace(string(htmlData)))
 
 	trk := RKResp{}
 	// Если содержимое htmlDtat не будет соответствовать структуре RKResp будет panic
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
-	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\]$)`)
-	if !validRKLip.MatchString(string(htmlData)) {
-		htmlData = RKResp2nilbyte()
-	}
+	log.Printf("htmlData= %v\n",strings.TrimSpace(string(htmlData)))
+//!	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
+//!	if !validRKLip.MatchString(strings.TrimSpace(string(htmlData))) {
+//!		htmlData = RKResp2nilbyte()
+//!	}
+
 	err_trk := json.Unmarshal(htmlData, &trk)
 	if err_trk != nil {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, API РегионКурьера изменилось, вы можете сообщить о проблеме по адресу pprisn@yandex.ru."))
@@ -118,7 +125,10 @@ func req2rkLip(barcode string) string {
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("ПОЧТА РОССИИ"))
+	        Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Наименование получателя %v\t", trk[0].Whom))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Адрес получателя %v\t", trk[0].Address))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочное ОПС     %v\t", trk[0].Postoffice))
@@ -179,15 +189,19 @@ func req2rkLipAttach(attachment string) string {
 	}
 
 	defer resp.Body.Close()
+	//удалим все \n\t\r из полученных данных
+	htmlData = []byte(strings.TrimSpace(string(htmlData)))
+
 
 	trk := RKResp{}
 	// Если содержимое htmlDtat не будет соответствовать структуре RKResp будет panic
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
-	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\]$)`)
-	if !validRKLip.MatchString(string(htmlData)) {
-		htmlData = RKResp2nilbyte()
-	}
+	log.Printf("htmlData= %v\n",strings.TrimSpace(string(htmlData)))
+//!	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
+//!	if !validRKLip.MatchString(strings.TrimSpace(string(htmlData))) {
+//!		htmlData = RKResp2nilbyte()
+//!	}
 	err_trk := json.Unmarshal(htmlData, &trk)
 	if err_trk != nil {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, API РегионКурьера изменилось, вы можете сообщить о проблеме по адресу pprisn@yandex.ru."))
@@ -203,7 +217,11 @@ func req2rkLipAttach(attachment string) string {
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
+
+		Delivstatus = append(Delivstatus, fmt.Sprintf("ПОЧТА РОССИИ"))
+	        Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Наименование получателя %v\t", trk[0].Whom))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Адрес получателя %v\t", trk[0].Address))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочное ОПС     %v\t", trk[0].Postoffice))
