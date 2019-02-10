@@ -221,7 +221,7 @@ func req2russianpost(barcode string) string {
 	for i, rec := range envelope.Body.GetOperationHistoryResponse.OperationHistoryData.HistoryRecord {
 		if i == 0 {
 
-                        Delivstatus = append(Delivstatus, fmt.Sprintf("Отправитель %v \t",rec.UserParameters.Sndr))
+                        Delivstatus = append(Delivstatus, fmt.Sprintf("Отправитель %v %v \t",rec.UserParameters.Sndr, rec.UserParameters.SendCtg.Name))
 //				AddressParameters struct {
 //						Text               string `xml:",chardata"`
 //						DestinationAddress struct {
@@ -230,6 +230,8 @@ func req2russianpost(barcode string) string {
 //							Description string `xml:"Description"`
                         Delivstatus = append(Delivstatus, fmt.Sprintf("Получатель %v \t",rec.UserParameters.Rcpn))
 	                Delivstatus = append(Delivstatus, fmt.Sprintf("Адрес получателя %v \t",rec.AddressParameters.DestinationAddress.Text))
+	                Delivstatus = append(Delivstatus, fmt.Sprintf("%v \t",rec.AddressParameters.DestinationAddress.Description))
+
 			Delivstatus = append(Delivstatus, fmt.Sprintf("%v Масса=%vгр.", rec.ItemParameters.ComplexItemName, rec.ItemParameters.Mass))
 			Delivstatus = append(Delivstatus, fmt.Sprintf("%v %v\t %v\t", string(rec.OperationParameters.OperDate)[:19],
 				rec.AddressParameters.OperationAddress.Description,
